@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            * { /* global font */
+                font-family: Verdana;
+                font-size: 18px;
+            }
+            #root { display: flex; flex-direction: row; }
+            #content { display: flex;
+                display: block;
+                width: 800px;
+                height: 250px;
+                /* vertically centered text */
+                line-height: 250px;
+                border: 2px solid #555;
+                margin: 32px;
+                text-align: center;
+            }
+            .route {
+                cursor: pointer;
+                justify-content: center;
+                width: 150px;
+                height: 50px;
+                /* vertically centered text */
+                line-height: 50px;
+                position: relative;
+                border: 2px solid #555;
+                background: white;
+                text-align: center;
+                margin: 16px;
+            }
+            .route.selected { background: yellow; }
+        </style>
+    </head>
+    <body>
+        <section id = "root">
+            <section class = "route" id = "home">/home</section>
+            <section class = "route" id = "about">/about</section>
+            <section class = "route" id = "gallery">/gallery</section>
+            <section class = "route" id = "contact">/contact</section>
+            <section class = "route" id = "help">/help</section>
+        </section>
+
+        <main id = "content">Content loading...</main>
+    </body>
+    <script src="explore-browser-api.js"></script>
+</html>
