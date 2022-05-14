@@ -1,3 +1,5 @@
+import { Observable } from "./Observable.js";
+
 export { Model, Card }
 
 const Model = cardsParam => {
@@ -14,22 +16,6 @@ const Model = cardsParam => {
     }
 
 
-}
-
-const Observable = value => {
-    const listeners = [];
-    return {
-        onBlur: callback => {
-            listeners.push(callback);
-            callback(value, value);
-        },
-        getValue: () => value,
-        setValue: newValue => {
-            if(value === newValue) return;
-            value = newValue;
-            listeners.forEach(callback => callback(value));
-        },
-    }
 }
 
 const Card = (_id) => {
