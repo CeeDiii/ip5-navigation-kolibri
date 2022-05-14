@@ -10,7 +10,7 @@ const helpCard    = Card("help");
 
 const cards = [homeCard, aboutCard, galleryCard, contactCard, helpCard];
 
-const model = Model(cards);
+const model = Model(homeCard, cards);
 
 const controller = Controller(model) 
 
