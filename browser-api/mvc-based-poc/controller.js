@@ -1,27 +1,43 @@
 import { EventType } from './EventType.js';
-import { Model, Card } from './model.js';
 
 export { Controller }
 
 const Controller = model => {
+    const modelListeners = [];
+
+    function addModelChangeListener(callback) {
+        modelListeners.push(callback);
+    }
     
     function onViewChange(eventType, value) {
         if (eventType === EventType.CONTENT) {
-            if (model.getNavigationPoint().getValue().getContent() === value) return;
-            console.log("model value change to " + value)
-            model.getNavigationPoint().getValue().getContent().setValue(value);
+            if (model.getNavigationPoint().getContent() === value) return;
+            console.log("view changed model content to " + value);
+            model.getNavigationPoint().setContent(value);
         } else if (eventType === EventType.NAVIGATION) {
-            if (model.getNavigationPoint().getValue().getId() === value) return;
+            if (model.getNavigationPoint().getId() === value) return;
             for (let card of model.getCards()) {
                 if (card.getId() === value) {
-                    console.log("navigation point changed to " + value)
+                    console.log("view changed model navigation point to " + value)
                     model.setNavigationPoint(card);
                 }
             }
         }
     }
 
+    function onModelChange(eventType, value) {
+        modelListeners.forEach(callback => {
+            callback(eventType, value);
+        });
+    }
+
+    (function registerInModel() {
+        model.addModelListener(onModelChange);
+    })();
+
     return {
-        onViewChange
+        addModelChangeListener,
+        onViewChange,
+        onModelChange
     }
 }

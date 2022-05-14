@@ -16,4 +16,18 @@ const Projector = controller => {
         inputField.addEventListener("keyup", () => controller.onViewChange(EventType.CONTENT, inputField.value));
     })();
 
+    (function bindModel() {
+        controller.addModelChangeListener((eventType, value) => {
+            if (eventType === EventType.CONTENT) {
+                if (paragraph.innerText === value) return;
+                paragraph.innerText = value;
+            } else if (eventType === EventType.NAVIGATION) {
+                inputField.value = "";
+                paragraph.innerText = value.getContent();
+            }
+        });
+    })();
+
+
+
 }
