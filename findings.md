@@ -26,6 +26,29 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * Das verhalten der Navigationsrichtung kann von der Erwartung des Nutzers abweichen
 * Trotzdem abhängig vom window.location.hash
 * Nach refresh bleibt die Browservative Historie, die Applikationseigene wird aber verworfen
+### URI vs. URL (& URN)
+(siehe Grafik: https://danielmiessler.com/images/url-structure-and-scheme-2022.png)
+#### URI
+* Uniform Resource Identifier
+* String, der eindeutig eine Ressource identifiziert 
+* nutzt Namen, Location oder beides zur Identifikation
+* Superset von URL und URN
+#### URL
+* Untergruppe von URI
+* spezifziert das Protokoll, wie eine Ressource erreichbar ist (z.B. http://)
+#### URN
+* Untergruppe von URI
+* URI mit spezifischen Namensschema zur Identifikation einer Ressource (z.B. isbn:)
+### Bookmarks - Chrome Bookmarks API vs localStorage
+#### Bookmarks API
+* Benötigt Manifest Konfigurationen
+* Nicht unterstützt durch Opera und Safari (Chromium basierte API)
+* Relativ aufwändig
+#### localStorage
+* Bis zu 10 MB Speicherkapazität
+* Kann nur Strings hinter einem beliebigen key speichern (JSON.stringify als Lösung für komplexere Strukturen)
+* Von allen üblichen Browsern nativ nutzbar
+* Straight forward ohne Konfigurationsaufwand
 ### Quellen
 #### Allgemeines
 Route Handling on single page applications:
@@ -52,5 +75,13 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/location
 
 Catch browser back:
 https://stackoverflow.com/questions/25806608/how-to-detect-browser-back-button-event-cross-browser
+
+#### URI vs. URL
+Differences:
+https://danielmiessler.com/study/difference-between-uri-url/
+
+#### Browser Bookmarks
+Bookmark API:
+https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks
 
 
