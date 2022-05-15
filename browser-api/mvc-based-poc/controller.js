@@ -20,13 +20,31 @@ const Controller = model => {
     const listeners = [];
 
     /**
+     * Initialize view
+     */
+    window.location.hash = "home";
+
+    /**
      *  Use native browser functionality with hashes to reload content from model
      */
-    window.onhashchange = function() {
+    window.onhashchange = () => {
         if (window.location.hash != '#undefined') {
             setNavigationPointByCardId(window.location.hash.substring(1));
         }
     }
+
+    /**
+     * After popping a state from the history stack
+     * restore its content to the model
+     * 
+     * @param {PopStateEvent} event
+     */
+    window.onpopstate = event => {
+        if (event.state) { 
+            setNavigationPointByCardId(event.target.location.href.split("#")[1]);
+            model.getNavigationPoint().setContent(event.state);
+        }
+    };
 
     /**
      * Saves the content of the current navigationpoint to localstorage
@@ -85,7 +103,9 @@ const Controller = model => {
      */
     function onModelChange(eventType, value) {
         if (eventType === EventType.NAVIGATION && window.location.hash !== value.getId()) {
-            window.location.hash = value.getId();
+            window.location.hash = value.getId();            
+        } else if (eventType === EventType.CONTENT && history.state !== value) {
+            history.pushState(value, null, ""); // push the state to the history
         }
         listeners.forEach(callback => {
             callback(eventType, value);

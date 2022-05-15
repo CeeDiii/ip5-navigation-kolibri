@@ -101,7 +101,7 @@ const Projector = controller => {
      * register listeners for the input keyup events
      */
     (function bindInput() {
-        inputField.addEventListener("keyup", () => controller.onViewChange(EventType.CONTENT, inputField.value));
+        inputField.addEventListener("change", () => controller.onViewChange(EventType.CONTENT, inputField.value));
     })();
 
     /**
