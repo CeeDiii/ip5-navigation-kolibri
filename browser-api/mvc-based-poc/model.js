@@ -3,6 +3,12 @@ import { Observable } from "./Observable.js";
 
 export { Model, Card }
 
+/**
+ * Model containing the application data
+ * 
+ * @param {Card} startingPoint 
+ * @param {[Card]} cardsParam 
+ */
 const Model = (startingPoint, cardsParam) => {
     let navigationPoint = Observable(startingPoint)
     const cards = cardsParam;
@@ -23,6 +29,11 @@ const Model = (startingPoint, cardsParam) => {
     }
 }
 
+/**
+ * Card containing the content
+ * 
+ * @param {String} _id 
+ */
 const Card = (_id) => {
     let id      = _id;
     let content = Observable('');
