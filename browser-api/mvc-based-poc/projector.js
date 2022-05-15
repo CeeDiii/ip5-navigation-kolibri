@@ -15,6 +15,9 @@ const Projector = controller => {
     let bookmarks = new Map();
     let currentNavigationElement = document.getElementById("home");
     
+    /**
+     * Initialize the view
+     */
     (function initView() {
         window.onload = () =>  inputField.value = "";
         bookmarks = controller.getBookMarks();
@@ -68,6 +71,12 @@ const Projector = controller => {
             tbody.appendChild(tr);
             const tdKey = document.createElement('td');
             tdKey.appendChild(document.createTextNode(bookmark[0]));
+            tdKey.addEventListener("click", () => { // let user restore bookmark state
+                if (confirm("Do you want to restore the bookmark state for " + bookmark[0] + " of " + bookmark[1])) {
+                    controller.restoreBookMark(bookmark[0]);
+                } 
+            });
+            tdKey.classList.add("bookmark-link");
             const tdValue = document.createElement('td');
             tdValue.appendChild(document.createTextNode(bookmark[1]));
             tr.appendChild(tdKey);

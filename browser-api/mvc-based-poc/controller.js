@@ -19,7 +19,6 @@ export { Controller }
 const Controller = model => {
     const listeners = [];
 
-
     /**
      *  Use native browser functionality with hashes to reload content from model
      */
@@ -32,12 +31,12 @@ const Controller = model => {
     /**
      * Saves the content of the current navigationpoint to localstorage
      * 
-     * @param {String} id - key to save the content to in local storage
+     * @param {String} key - key to save the content to in local storage
      */
-    function saveToBookmark(id) {
-        if (localStorage.getItem(id === model.getNavigationPoint().getContent())) return;
-        localStorage.setItem(id, model.getNavigationPoint().getContent());
-        listeners.forEach(callback => callback(EventType.BOOKMARK, {key: id, value: model.getNavigationPoint().getContent()}));
+    function saveToBookmark(key) {
+        if (localStorage.getItem(key === model.getNavigationPoint().getContent())) return;
+        localStorage.setItem(key, model.getNavigationPoint().getContent());
+        listeners.forEach(callback => callback(EventType.BOOKMARK, {key: key, value: model.getNavigationPoint().getContent()}));
     }
 
     /**
@@ -53,6 +52,18 @@ const Controller = model => {
             }
         }
         return bookmarks;
+    }
+
+    /**
+     * Restores the state of the bookmark from localStorage
+     * stored under key
+     * 
+     * @param {String} key - key of the requested bookmark
+     */
+    function restoreBookMark(key) {
+        const bookmark = getBookMarks().get(key);
+        setNavigationPointByCardId(key);
+        model.getNavigationPoint().setContent(bookmark);
     }
 
     /**
@@ -124,6 +135,7 @@ const Controller = model => {
         getBookMarks,
         onViewChange,
         onModelChange,
+        restoreBookMark,
         saveToBookmark
     }
 }
