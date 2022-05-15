@@ -17,7 +17,7 @@ export { Controller }
  * @param {Model} model 
  */
 const Controller = model => {
-    const modelListeners = [];
+    const listeners = [];
 
 
     /**
@@ -30,12 +30,23 @@ const Controller = model => {
     }
 
     /**
+     * Saves the content of the current navigationpoint to localstorage
+     * 
+     * @param {String} id - key to save the content to in local storage
+     */
+    function saveToBookmark(id) {
+        if (localStorage.getItem(id === model.getNavigationPoint().getContent())) return;
+        localStorage.setItem(id, model.getNavigationPoint().getContent());
+        listeners.forEach(callback => callback(EventType.BOOKMARK, {key: id, value: model.getNavigationPoint().getContent()}))
+    }
+
+    /**
      * Add a callback function that will be executed when a model change occurs
      * 
      * @param {callback: onChange<EventType, T>} callback - function that will be called
      */
     function addModelChangeListener(callback) {
-        modelListeners.push(callback);
+        listeners.push(callback);
     }
 
     /**
@@ -50,7 +61,7 @@ const Controller = model => {
         if (eventType === EventType.NAVIGATION && window.location.hash !== value.getId()) {
             window.location.hash = value.getId();
         }
-        modelListeners.forEach(callback => {
+        listeners.forEach(callback => {
             callback(eventType, value);
         });
     }
@@ -96,6 +107,7 @@ const Controller = model => {
     return {
         addModelChangeListener,
         onViewChange,
-        onModelChange
+        onModelChange,
+        saveToBookmark
     }
 }

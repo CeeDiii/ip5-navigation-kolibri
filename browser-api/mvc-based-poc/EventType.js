@@ -2,5 +2,6 @@ export { EventType }
 
 const EventType = {
     NAVIGATION: "navigation",
-    CONTENT: "content"
+    CONTENT: "content",
+    BOOKMARK: "bookmark"
 }

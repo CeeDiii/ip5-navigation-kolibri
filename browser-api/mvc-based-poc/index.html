@@ -17,6 +17,18 @@
                 margin: 32px;
                 text-align: center;
             }
+
+            #contentInput {
+                margin-right: 64px;
+                width: 360px;
+            }
+
+            .user-input {
+                display: flex;
+                flex-direction: row;
+                margin: 32px;
+            }
+
             .route {
                 cursor: pointer;
                 justify-content: center;
@@ -31,21 +43,47 @@
                 margin: 16px;
             }
             .route.selected { background: yellow; }
+
+            #bookmarks {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #bookmarks td, #bookmarks th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #bookmarks tr:nth-child(even){background-color: #f2f2f2;}
+
+            #bookmarks tr:hover {background-color: #ddd;}
+
+            #bookmarks th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
         </style>
     </head>
     <body>
         <div id = "root">
-            <nav class = "route" id = "home">home</nav>
+            <nav class = "route selected" id = "home">home</nav>
             <nav class = "route" id = "about">about</nav>
             <nav class = "route" id = "gallery">gallery</nav>
             <nav class = "route" id = "contact">contact</nav>
             <nav class = "route" id = "help">help</nav>
         </div>
-
-        <main id = "content">
+        <div class="user-input">
             <input type="text" id="contentInput" placeholder="Type some content here...">
+            <button id="bookmark">Save content to a bookmark</button>
+        </div>
+        <main id = "content">
             <p id="contentRender"></p>
         </main>
+        <div id="renderBookmarks" hidden></div>
     </body>
     <script type="module" src="starter.js"></script>
 </html>
