@@ -12,8 +12,15 @@ const Projector = controller => {
     const inputField = document.getElementById("contentInput");
     const bookmarkButton = document.getElementById("bookmark");
     const divRenderBookmarks = document.getElementById("renderBookmarks");
-    const bookmarks = new Map();
+    let bookmarks = new Map();
     let currentNavigationElement = document.getElementById("home");
+    
+    (function initView() {
+        window.onload = () =>  inputField.value = "";
+        bookmarks = controller.getBookMarks();
+        if (bookmarks.size === 0) divRenderBookmarks.hidden = true;
+        else renderBookMarks();
+    })()
 
 
     /**

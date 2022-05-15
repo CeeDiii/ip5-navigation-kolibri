@@ -37,7 +37,22 @@ const Controller = model => {
     function saveToBookmark(id) {
         if (localStorage.getItem(id === model.getNavigationPoint().getContent())) return;
         localStorage.setItem(id, model.getNavigationPoint().getContent());
-        listeners.forEach(callback => callback(EventType.BOOKMARK, {key: id, value: model.getNavigationPoint().getContent()}))
+        listeners.forEach(callback => callback(EventType.BOOKMARK, {key: id, value: model.getNavigationPoint().getContent()}));
+    }
+
+    /**
+     * Gets and returns the bookmarks from localStorage
+     * 
+     * @returns { bookmarks: Map<String, String> } - the bookmarks from localStorage
+     */
+    function getBookMarks() {
+        const bookmarks = new Map();
+        for (let navPoint of model.getCards()) {
+            if (localStorage.getItem(navPoint.getId())) {
+                bookmarks.set(navPoint.getId(), localStorage.getItem(navPoint.getId()));
+            }
+        }
+        return bookmarks;
     }
 
     /**
@@ -106,6 +121,7 @@ const Controller = model => {
 
     return {
         addModelChangeListener,
+        getBookMarks,
         onViewChange,
         onModelChange,
         saveToBookmark
