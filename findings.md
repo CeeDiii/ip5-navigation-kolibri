@@ -44,11 +44,26 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * Benötigt Manifest Konfigurationen
 * Nicht unterstützt durch Opera und Safari (Chromium basierte API)
 * Relativ aufwändig
+* User muss ein Addon installieren und Permissions für Browserzugriff erteilen
+* Navigationslogik müsste Teil von Addon sein -> starke Koppelung zwischen Navigations- und Applikationslogik
+#### Bookmarklets
+* Jeglicher Javascript-Code kann "inline" als Bookmark ausgeführt werden, wenn er mit `javascript:` annotiert wird
+* Dadurch das Code in `href` verpackt wird, kann er auch als Lesezeichen gespeichert werden
+* User muss lernen, wie Bookmarklets verwendet bzw. gespeichert werden
+* Inline-Javascript könnte von Sicherheitsrichtlinien blockiert werden
 #### localStorage
 * Bis zu 10 MB Speicherkapazität
 * Kann nur Strings hinter einem beliebigen key speichern (JSON.stringify als Lösung für komplexere Strukturen)
 * Von allen üblichen Browsern nativ nutzbar
 * Straight forward ohne Konfigurationsaufwand
+### Browser Buttons
+* Grundsätzlich ist es eine extrem schlechte Idee das Standardverhalten der Browsernavigation zu manipulieren
+#### Forward-Back-Loop
+* Es ist möglich nach jedem Back-Aufruf eine Forward zu erzwingen, sodass die vorherige Seite nicht mehr angezeigt wird
+* User ist in einem Loop gefangen
+* User kann Verhalten durchbrechen, wenn er schnell 2x Back drückt
+* User sieht sieht unter Umständen die alte Seite, zu der er eigentlich zurück möchte
+
 ### Quellen
 #### Allgemeines
 Route Handling on single page applications:
@@ -69,6 +84,9 @@ https://medium.com/@george.norberg/history-api-getting-started-36bfc82ddefc
 Maximum size of a state object:
 https://stackoverflow.com/questions/6460377/html5-history-api-what-is-the-max-size-the-state-object-can-be
 
+Not allowed to delete a history entry:
+https://stackoverflow.com/questions/28028297/js-window-history-delete-a-state
+
 #### Window.location
 Window.location:
 https://developer.mozilla.org/en-US/docs/Web/API/Window/location
@@ -83,5 +101,12 @@ https://danielmiessler.com/study/difference-between-uri-url/
 #### Browser Bookmarks
 Bookmark API:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/bookmarks
+
+Bookmarklets:
+https://support.mozilla.org/de/kb/bookmarklets-verwenden
+
+#### Browser Buttons
+Forward-Back-Loop:
+https://www.geeksforgeeks.org/how-to-stop-browser-back-button-using-javascript/
 
 
