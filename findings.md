@@ -63,6 +63,10 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * User ist in einem Loop gefangen
 * User kann Verhalten durchbrechen, wenn er schnell 2x Back drückt
 * User sieht sieht unter Umständen die alte Seite, zu der er eigentlich zurück möchte
+#### webRequest-API-catch-back
+* User muss unser Addon installieren
+* Je nach browser andere Synthax (Firefox-Object = browser, Crome-Object = crome)
+* Die 'blockierten' Seiten müssen definiert sein
 
 ### Quellen
 #### Allgemeines
@@ -109,4 +113,6 @@ https://support.mozilla.org/de/kb/bookmarklets-verwenden
 Forward-Back-Loop:
 https://www.geeksforgeeks.org/how-to-stop-browser-back-button-using-javascript/
 
-
+#### Catch Browser requests
+webRequest-API-catch-back:
+https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept_HTTP_requests

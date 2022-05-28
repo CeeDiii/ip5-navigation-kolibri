@@ -1,13 +1,13 @@
 let history = [];
 
 function blockBack(requestDetails) {
-    let page, object;
+    let page, requestUrl;
     if(requestDetails.frameType === "outermost_frame") {
-        object = requestDetails.url
-        if(object.indexOf('?') > 0) {
-            page = object.substring(0, object.indexOf('?'));
+        requestUrl = requestDetails.url
+        if(requestUrl.indexOf('?') > 0) {
+            page = requestUrl.substring(0, object.indexOf('?'));
         } else {
-            page = object;
+            page = requestUrl;
         }
         if (history.includes(page)) {
             return{
@@ -23,7 +23,7 @@ function blockBack(requestDetails) {
 chrome.webRequest.onBeforeRequest.addListener(
     blockBack,
     {
-        urls: ["<all_urls>"],
+        urls:  ["<all_urls>"],
         types: ["main_frame"],
     },
     ["blocking"]
