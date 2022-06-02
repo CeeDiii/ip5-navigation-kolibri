@@ -1,3 +1,5 @@
+//@ts-check
+import { controller } from "./Controller.js";
 import { EventType } from "./EventType.js"
 
 export { Projector }
@@ -5,7 +7,7 @@ export { Projector }
 /**
  * Project content to view
  * 
- * @param {Controller} controller 
+ * @param {controller} controller 
  */
 const Projector = controller => {
     const paragraph  = document.getElementById("contentRender");
