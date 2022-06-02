@@ -67,6 +67,7 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * User muss unser Addon installieren
 * Je nach browser andere Synthax (Firefox-Object = browser, Crome-Object = crome)
 * Die 'blockierten' Seiten müssen definiert sein
+* Weitere, installierte Extensions mit webRequest-Lifecycles können zu Fehlverhalten im Browser führen
 
 ### Quellen
 #### Allgemeines

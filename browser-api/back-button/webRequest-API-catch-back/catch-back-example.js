@@ -28,5 +28,3 @@ chrome.webRequest.onBeforeRequest.addListener(
     },
     ["blocking"]
 )
-
-//text/html;charset=UTF-8
