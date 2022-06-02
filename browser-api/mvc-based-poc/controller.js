@@ -1,4 +1,6 @@
+//@ts-check
 import { EventType } from './EventType.js';
+import { card, model } from './Model.js';
 
 export { Controller }
 
@@ -13,38 +15,25 @@ export { Controller }
 /**
  * 
  * Delegates changes from the view to the model an vice versa
- * 
- * @param {Model} model 
+ * @typedef {Object} controller
+ * @param {model} model 
  */
 const Controller = model => {
     const listeners = [];
 
     /**
-     * Initialize view
+     * Initialize controller
      */
-    window.location.hash = "home";
+    (function init() {
+        window.location.hash = "home";
 
-    /**
-     *  Use native browser functionality with hashes to reload content from model
-     */
-    window.onhashchange = () => {
-        if (window.location.hash != '#undefined') {
-            setNavigationPointByCardId(window.location.hash.substring(1));
+        // Use native browser functionality with hashes to reload content from model
+        window.onhashchange = () => {
+            if (window.location.hash != '#undefined') {
+                setNavigationPointByCardId(window.location.hash.substring(1));
+            }
         }
-    }
-
-    /**
-     * After popping a state from the history stack
-     * restore its content to the model
-     * 
-     * @param {PopStateEvent} event
-     */
-    window.onpopstate = event => {
-        if (event.state) { 
-            setNavigationPointByCardId(event.target.location.href.split("#")[1]);
-            model.getNavigationPoint().setContent(event.state);
-        }
-    };
+    })();
 
     /**
      * Saves the content of the current navigationpoint to localstorage
@@ -52,7 +41,7 @@ const Controller = model => {
      * @param {String} key - key to save the content to in local storage
      */
     function saveToBookmark(key) {
-        if (localStorage.getItem(key === model.getNavigationPoint().getContent())) return;
+        if (localStorage.getItem(key) === model.getNavigationPoint().getContent()) return;
         localStorage.setItem(key, model.getNavigationPoint().getContent());
         listeners.forEach(callback => callback(EventType.BOOKMARK, {key: key, value: model.getNavigationPoint().getContent()}));
     }
@@ -87,7 +76,7 @@ const Controller = model => {
     /**
      * Add a callback function that will be executed when a model change occurs
      * 
-     * @param {callback: onChange<EventType, T>} callback - function that will be called
+     * @callback {callback: onChange<EventType, T>} callback - function that will be called
      */
     function addModelChangeListener(callback) {
         listeners.push(callback);
@@ -97,8 +86,7 @@ const Controller = model => {
      * Notify view that a model change occurred
      * 
      * @param {EventType} eventType - type of the event
-     * @param {T} value - changed value
-     * @returns {void}
+     * @param {card} value - changed value
      * 
      */
     function onModelChange(eventType, value) {
@@ -123,7 +111,7 @@ const Controller = model => {
      * Notify the model that a view change occurred
      * 
      * @param {EventType} eventType - type of the event
-     * @param {T} value - changed value
+     * @param {string} value - changed value
      * @returns {void}
      * 
      */

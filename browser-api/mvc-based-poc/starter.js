@@ -1,3 +1,4 @@
+//@ts-check
 import { Card, Model } from "./model.js";
 import { Controller } from "./controller.js";
 import { Projector } from "./projector.js";

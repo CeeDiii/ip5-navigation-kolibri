@@ -1,3 +1,4 @@
+//@ts-check
 import { EventType } from "./EventType.js";
 import { Observable } from "./Observable.js";
 
@@ -6,8 +7,9 @@ export { Model, Card }
 /**
  * Model containing the application data
  * 
- * @param {Card} startingPoint 
- * @param {[Card]} cardsParam 
+ * @typedef {Object} model
+ * @param {card} startingPoint 
+ * @param {[card]} cardsParam 
  */
 const Model = (startingPoint, cardsParam) => {
     let navigationPoint = Observable(startingPoint)
@@ -31,8 +33,8 @@ const Model = (startingPoint, cardsParam) => {
 
 /**
  * Card containing the content
- * 
- * @param {String} _id 
+ * @typedef {Object} card
+ * @param {string} _id 
  */
 const Card = (_id) => {
     let id      = _id;
