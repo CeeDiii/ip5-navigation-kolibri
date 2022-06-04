@@ -68,6 +68,12 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * Je nach browser andere Synthax (Firefox-Object = browser, Crome-Object = crome)
 * Die 'blockierten' Seiten müssen definiert sein
 * Weitere, installierte Extensions mit webRequest-Lifecycles können zu Fehlverhalten im Browser führen
+#### Service-Worker
+* installiert einen Serivce Worker im Browser, der Requests abfangen und manipulieren kann
+* nützlich für Progressive Web Apps (PWA) um offline-Kompatibilitäten für Web-Appplikationen einzubauen
+* ermöglicht eigenes Load Balancing
+* kann genutzt werden um Bandbreite zu sparen, da Anfragen direkt vom Cache bedient werden können
+* wird nur von Firefox und Chrome vollumfänglich unterstützt
 
 ### Quellen
 #### Allgemeines
@@ -117,3 +123,8 @@ https://www.geeksforgeeks.org/how-to-stop-browser-back-button-using-javascript/
 #### Catch Browser requests
 webRequest-API-catch-back:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept_HTTP_requests
+
+#### Service Worker
+Fetch API: https://livebook.manning.com/book/progressive-web-apps/chapter-4/1
+
+Documentation: https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
