@@ -1,6 +1,4 @@
-//@ts-check
 import { EventType } from './EventType.js';
-import { card, model } from './Model.js';
 
 export { Controller }
 

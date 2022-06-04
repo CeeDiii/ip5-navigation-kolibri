@@ -1,4 +1,3 @@
-//@ts-check
 import { EventType } from "./EventType.js";
 import { Observable } from "./Observable.js";
 

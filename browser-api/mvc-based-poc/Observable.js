@@ -1,4 +1,3 @@
-//@ts-check
 export { Observable }
 
 const Observable = value => {

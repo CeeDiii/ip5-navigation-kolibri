@@ -1,7 +1,6 @@
-//@ts-check
-import { Card, Model } from "./model.js";
-import { Controller } from "./controller.js";
-import { Projector } from "./projector.js";
+import { Card, Model } from "./Model.js";
+import { Controller } from "./Controller.js";
+import { Projector } from "./Projector.js";
 
 const homeCard    = Card("home");
 const aboutCard   = Card("about");

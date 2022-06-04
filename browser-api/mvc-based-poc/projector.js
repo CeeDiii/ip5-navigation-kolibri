@@ -1,5 +1,3 @@
-//@ts-check
-import { controller } from "./Controller.js";
 import { EventType } from "./EventType.js"
 
 export { Projector }
