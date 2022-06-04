@@ -74,6 +74,15 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * ermöglicht eigenes Load Balancing
 * kann genutzt werden um Bandbreite zu sparen, da Anfragen direkt vom Cache bedient werden können
 * wird nur von Firefox und Chrome vollumfänglich unterstützt
+#### Web-Worker
+* ermöglicht Multithreading im Browser
+* nützlich für rechenintensive Tasks
+### Functional history
+#### javascript function + eval
+* `eval()` erlaubt einen String als Javascript-Funktion auszuführen
+* somit haben wir die Möglichkeit die Renderfunktion eines Zustands direkt in der Browserhistory abzulegen
+#### bookmarklet + window.location
+* siehe Erklärung javascript function + eval, funktioniert mit Bookmarklets
 
 ### Quellen
 #### Allgemeines
@@ -128,3 +137,6 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept
 Fetch API: https://livebook.manning.com/book/progressive-web-apps/chapter-4/1
 
 Documentation: https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+
+#### Web Worker
+Documentation: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
