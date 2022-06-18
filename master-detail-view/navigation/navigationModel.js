@@ -1,4 +1,5 @@
-import {Attribute, VALUE} from "../kolibri/presentationModel";
+import { Attribute, VALUE } from "../kolibri/presentationModel";
+import {EventType} from "./EventType";
 
 export { Navigation }
 
@@ -21,12 +22,14 @@ const Navigation = (homePage) => {
         setLocation: newValue => {
             if(location.getObs(VALUE).getValue() === newValue) return;
             location.getObs(VALUE).setValue(newValue);
-            navigationListeners.forEach(callback => callback(location.getObs(VALUE).getValue()));
+            navigationListeners.forEach(callback => callback(EventType.CONTENT, location.getObs(VALUE).getValue()));
         },
         addNavigationPoint: newValue => {
             if(navigationPoints.getObs(VALUE).find(newValue) === 'undefined') return false;
             navigationPoints.getObs(VALUE).push(newValue);
+            navigationListeners.forEach(callback => callback(EventType.NAVIGATION, newValue));
             return true;
         },
+        getNavigationPoints: () => navigationPoints.getObs(VALUE).getValue(),
     }
 }
