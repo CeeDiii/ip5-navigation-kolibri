@@ -33,3 +33,5 @@ const Navigation = (homePage) => {
         getNavigationPoints: () => navigationPoints.getObs(VALUE).getValue(),
     }
 }
+
+//@TODO comment / document

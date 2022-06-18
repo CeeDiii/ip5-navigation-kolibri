@@ -38,6 +38,10 @@ const Controller = model => {
 
     model.addNavigationListener(onModelChange);
 
+    /**
+     * Return all navigation points
+     *
+     */
     const getNavigationPoints = () => {
         return model.getNavigationPoints();
     }
