@@ -74,6 +74,9 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * ermöglicht eigenes Load Balancing
 * kann genutzt werden um Bandbreite zu sparen, da Anfragen direkt vom Cache bedient werden können
 * wird nur von Firefox und Chrome vollumfänglich unterstützt
+* globaler Zustand geht mit Navigation verloren
+* Zustand muss manuell gespeichert und verwaltet werden
+* TODO: Recherche zu React-State-Management mit Hooks (nutzen Service-Worker)
 #### Web-Worker
 * ermöglicht Multithreading im Browser
 * nützlich für rechenintensive Tasks
@@ -83,6 +86,9 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * somit haben wir die Möglichkeit die Renderfunktion eines Zustands direkt in der Browserhistory abzulegen
 #### bookmarklet + window.location
 * siehe Erklärung javascript function + eval, funktioniert mit Bookmarklets
+#### Function-Constructor
+* siehe Erklärung javascript function + eval
+* sauberste Lösung der drei genannten
 
 ### Quellen
 #### Allgemeines
