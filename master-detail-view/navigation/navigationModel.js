@@ -1,5 +1,5 @@
-import { Attribute, VALUE } from "../kolibri/presentationModel";
-import {EventType} from "./EventType";
+import { Attribute, VALUE } from "../kolibri/presentationModel.js";
+import { EventType } from "./EventType.js";
 
 export { Navigation }
 
@@ -16,18 +16,18 @@ const Navigation = (homePage) => {
 
     return {
         addNavigationListener: callback => {
-            navigationListeners.push(callback);
+            navigationListeners.getObs(VALUE).getValue().push(callback);
         },
         getLocation: () => location.getObs(VALUE).getValue(),
         setLocation: newValue => {
             if(location.getObs(VALUE).getValue() === newValue) return;
             location.getObs(VALUE).setValue(newValue);
-            navigationListeners.forEach(callback => callback(EventType.CONTENT, location.getObs(VALUE).getValue()));
+            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(EventType.CONTENT, location.getObs(VALUE).getValue()));
         },
         addNavigationPoint: newValue => {
-            if(navigationPoints.getObs(VALUE).find(newValue) === 'undefined') return false;
-            navigationPoints.getObs(VALUE).push(newValue);
-            navigationListeners.forEach(callback => callback(EventType.NAVIGATION, newValue));
+            if(navigationPoints.getObs(VALUE).getValue().find(element => element === newValue) === 'undefined') return false;
+            navigationPoints.getObs(VALUE).getValue().push(newValue);
+            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(EventType.NAVIGATION, newValue));
             return true;
         },
         getNavigationPoints: () => navigationPoints.getObs(VALUE).getValue(),

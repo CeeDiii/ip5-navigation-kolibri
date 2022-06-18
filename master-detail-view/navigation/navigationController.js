@@ -8,7 +8,7 @@ const Controller = model => {
 
     // Use native browser functionality with hashes to reload content from model
     window.onhashchange = () => {
-        if (model.getNavigationPoints().find(window.location.hash) === 'undefined') return;
+        if (model.getNavigationPoints().find(element => element === window.location.hash) === 'undefined') return;
 
         model.setLocation(window.location.hash)
     }
@@ -18,7 +18,7 @@ const Controller = model => {
      *
      * @callback {callback: onChange<EventType, T>} callback - function that will be called
      */
-    const addModelChangeListener= (callback) => {
+    const addModelChangeListener = (callback) => {
         modelChangeListeners.push(callback);
     }
 
@@ -36,10 +36,14 @@ const Controller = model => {
         modelChangeListeners.forEach(callback => callback(eventType, newHash));
     }
 
-    model.addModelListener(onModelChange);
+    model.addNavigationListener(onModelChange);
+
+    const getNavigationPoints = () => {
+        return model.getNavigationPoints();
+    }
 
     return {
         addModelChangeListener,
-        onModelChange
+        getNavigationPoints
     }
 }
