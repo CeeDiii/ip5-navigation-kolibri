@@ -19,7 +19,7 @@ const NavigationProjector = controller => {
         for(let item of controller.getNavigationPoints()) {
             const li = document.createElement('li');
             const a = document.createElement('a');
-            a.setAttribute('href', '#' + item)
+            a.setAttribute('href', '#' + item);
             a.innerText = item;
             li.appendChild(a);
             ul.appendChild(li);

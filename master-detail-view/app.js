@@ -43,6 +43,7 @@ navController.addNavigationPoint('home', (navEvent) => {
         h1.innerText = navEvent.getValue().toUpperCase();
         content.appendChild(h1);
         const div = document.createElement('div');
+        div.style = 'display: flex; justify-content: center';
         const input = document.createElement('input');
         input.type = 'text';
         const button = document.createElement('button');
@@ -55,6 +56,7 @@ navController.addNavigationPoint('home', (navEvent) => {
                 h1.innerText = navEvent.getValue().toUpperCase();
                 content.appendChild(h1);
                 const div = document.createElement('div');
+                div.style = 'display: flex; justify-content: center';
                 const p = document.createElement('p');
                 const trigger = document.createElement('button');
                 let counter = 0;
