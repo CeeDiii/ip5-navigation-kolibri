@@ -6,6 +6,6 @@ export { EventType }
  */
 
 const EventType = {
-    NAVIGATION: "navigation",
-    CONTENT:    "content",
+    NAVBAR_CHANGE: "navbar_change",
+    PAGE_CHANGE:    "page_change",
 }

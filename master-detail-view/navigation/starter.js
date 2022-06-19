@@ -1,14 +1,14 @@
 import { Navigation } from "./navigationModel.js";
-import { Controller } from "./navigationController.js";
-import {Projector} from "./navigationProjector.js";
+import { NavigationController } from "./navigationController.js";
+import {NavigationProjector} from "./navigationProjector.js";
 
 const model = Navigation('home'); //@TODO change logic for start point (create startpoint from constructor and implement logic for order)
 model.addNavigationPoint('home');
 model.addNavigationPoint('faq');
 
-const controller = Controller(model);
+const controller = NavigationController(model);
 
-const projector = Projector(controller);
+const projector = NavigationProjector(controller);
 
 document.getElementsByTagName('body')[0].innerHTML = projector;
 

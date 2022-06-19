@@ -1,7 +1,8 @@
-import { EventType } from './EventType.js';
-export { Controller }
 
-const Controller = model => {
+import { EventType } from './EventType.js';
+export { NavigationController }
+
+const NavigationController = model => {
     const modelChangeListeners = [];
 
     window.location.hash = model.getLocation();
@@ -23,17 +24,16 @@ const Controller = model => {
     }
 
     /**
-     * Notify view that a model change occurred
+     * Notify observers that a model change occurred
      *
-     * @param {String} eventType - changed value
-     * @param {String} newHash - changed value
+     * @param {NavigationEvent} navEvent
      *
      */
-    const onModelChange = (eventType, newHash) => {
-        if (eventType === EventType.CONTENT && window.location.hash !== newHash) {
-            window.location.hash = newHash;
+    const onModelChange = navEvent => {
+        if (navEvent.getEventType() === EventType.PAGE_CHANGE && window.location.hash !== navEvent.getValue()) {
+            window.location.hash = navEvent.getValue();
         }
-        modelChangeListeners.forEach(callback => callback(eventType, newHash));
+        modelChangeListeners.forEach(callback => callback(navEvent));
     }
 
     model.addNavigationListener(onModelChange);
