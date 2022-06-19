@@ -15,6 +15,8 @@ const Navigation = (homePage) => {
     const location            = Attribute(homePage);
     const navigationListeners = Attribute([]);
 
+    navigationPoints.getObs(VALUE).getValue().push(homePage);
+
     return {
         addNavigationListener: callback => {
             navigationListeners.getObs(VALUE).getValue().push(callback);
@@ -26,8 +28,9 @@ const Navigation = (homePage) => {
             navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue())));
         },
         addNavigationPoint: newValue => {
-            if(navigationPoints.getObs(VALUE).getValue().find(element => element === newValue) === 'undefined') return false;
-            navigationPoints.getObs(VALUE).getValue().push(newValue);
+            const navPoints = navigationPoints.getObs(VALUE).getValue();
+            if(navPoints.length > 0 && navPoints.find(element => element !== newValue) === undefined) return false;
+            navPoints.push(newValue);
             navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newValue)));
             return true;
         },
