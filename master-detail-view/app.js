@@ -1,15 +1,15 @@
 import { Navigation } from "./navigation/navigationModel.js";
 import { NavigationController } from "./navigation/navigationController.js";
 import { NavigationProjector } from "./navigation/navigationProjector.js";
-import { CarListController, CarSelectionController }           from "./navigation/pages/car/carController.js";
-import { Car, carSelectionMold }                            from './navigation/pages/car/car.js';
-import { PersonListController, PersonSelectionController }           from "./navigation/pages/person/personController.js";
-import { Person, personSelectionMold }                            from './navigation/pages/person/person.js';
+import { CarListController, CarSelectionController }           from "./pages/car/carController.js";
+import { Car, carSelectionMold }                            from './pages/car/car.js';
+import { PersonListController, PersonSelectionController }           from "./pages/person/personController.js";
+import { Person, personSelectionMold }                            from './pages/person/person.js';
 
-import { carPageCss }                                       from "./navigation/pages/car/instantUpdateProjector.js";
-import { carProjectDetailView, carProjectMasterView }          from "./navigation/pages/car/masterDetailProjector.js";
-import { personPageCss }                                       from "./navigation/pages/person/instantUpdateProjector.js";
-import { personProjectDetailView, personProjectMasterView }          from "./navigation/pages/person/masterDetailProjector.js";
+import { carPageCss }                                       from "./pages/car/instantUpdateProjector.js";
+import { carProjectDetailView, carProjectMasterView }          from "./pages/car/masterDetailProjector.js";
+import { personPageCss }                                       from "./pages/person/instantUpdateProjector.js";
+import { personProjectDetailView, personProjectMasterView }          from "./pages/person/masterDetailProjector.js";
 import { EventType } from "./navigation/EventType.js";
 
 /********************************** SETUP ****************************************/
@@ -20,8 +20,9 @@ const carSelectionController = CarSelectionController(carSelectionMold);
 const personListController      = PersonListController(Person);
 const personSelectionController = PersonSelectionController(personSelectionMold);
 
-const h1 = document.createElement("h1");
-const content = document.getElementById("content");
+const h1 = document.createElement('h1');
+const content = document.getElementById('content');
+const style = document.getElementById('style');
 
 /********************************** NAVIGATION ****************************************/
 
@@ -34,10 +35,17 @@ const navProjector = NavigationProjector(navController);
 navModel.addNavigationPoint('person');
 navModel.addNavigationPoint('car');
 
+/********************************** CAR ****************************************/
+
 navController.addModelChangeListener((navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'car') {
+        content.innerHTML = '';
+        h1.innerText = navEvent.getValue().toUpperCase();
+        content.appendChild(h1);
+        style.innerHTML =     '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
+                              '<link rel="stylesheet"                     href="./pages/car/instantUpdateProjector.css">'
+
         // create the sub-views, incl. binding
-        console.log("car");
         const [_, detail] = baseConstructForMDView();
 
         const carMaster = carProjectMasterView(carListController, carSelectionController, );
@@ -57,13 +65,18 @@ navController.addModelChangeListener((navEvent) => {
 
 navController.addModelChangeListener((navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'person') {
+        content.innerHTML = '';
+        h1.innerText = navEvent.getValue().toUpperCase();
+        content.appendChild(h1);
+        style.innerHTML =     '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
+                              '<link rel="stylesheet"                     href="./pages/person/instantUpdateProjector.css">'
         // create the sub-views, incl. binding
-        console.log("person");
+        const [_, detail] = baseConstructForMDView();
 
         const personMaster = personProjectMasterView(personListController, personSelectionController, );
         document.getElementById('masterContainer').append(...personMaster);
 
-        const personDetailForm = personProjectDetailView(personSelectionController, document.getElementById('detailCard'));
+        const personDetailForm = personProjectDetailView(personSelectionController, detail);
         document.getElementById('detailContainer').append(...personDetailForm);
 
         document.querySelector('head style').textContent += personPageCss;

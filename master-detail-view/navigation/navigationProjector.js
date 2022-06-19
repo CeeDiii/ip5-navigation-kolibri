@@ -3,7 +3,7 @@ import { EventType } from "./EventType.js";
 export { NavigationProjector }
 
 const NavigationProjector = controller => {
-    //@BIG TODO: implement projector
+    //@BIG TODO: implement beautiful UI and project it
 
     const projectNavigation = () => {
         const nav = document.getElementById('nav');

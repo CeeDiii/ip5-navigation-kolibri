@@ -22,16 +22,16 @@ const Navigation = (homePage) => {
             navigationListeners.getObs(VALUE).getValue().push(callback);
         },
         getLocation: () => location.getObs(VALUE).getValue(),
-        setLocation: newValue => {
-            if(location.getObs(VALUE).getValue() === newValue) return;
-            location.getObs(VALUE).setValue(newValue);
+        setLocation: newLocation => {
+            if(location.getObs(VALUE).getValue() === newLocation) return;
+            location.getObs(VALUE).setValue(newLocation);
             navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue())));
         },
-        addNavigationPoint: newValue => {
+        addNavigationPoint: newNavPoint => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
-            if(navPoints.length > 0 && navPoints.find(element => element !== newValue) === undefined) return false;
-            navPoints.push(newValue);
-            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newValue)));
+            if(navPoints.length > 0 && navPoints.find(navPoint => navPoint !== newNavPoint) === undefined) return false;
+            navPoints.push(newNavPoint);
+            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint)));
             return true;
         },
         getNavigationPoints: () => navigationPoints.getObs(VALUE).getValue(),
