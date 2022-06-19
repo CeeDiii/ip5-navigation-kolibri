@@ -1,16 +1,16 @@
-import { Navigation } from "./navigation/navigationModel.js";
-import { NavigationController } from "./navigation/navigationController.js";
-import { NavigationProjector } from "./navigation/navigationProjector.js";
-import { CarListController, CarSelectionController }           from "./pages/car/carController.js";
+import { EventType }                                        from "./navigation/EventType.js";
+import { Navigation }                                       from "./navigation/navigationModel.js";
+import { NavigationController }                             from "./navigation/navigationController.js";
+import { NavigationProjector }                              from "./navigation/navigationProjector.js";
+import { CarListController, CarSelectionController }        from "./pages/car/carController.js";
 import { Car, carSelectionMold }                            from './pages/car/car.js';
-import { PersonListController, PersonSelectionController }           from "./pages/person/personController.js";
-import { Person, personSelectionMold }                            from './pages/person/person.js';
+import { PersonListController, PersonSelectionController }  from "./pages/person/personController.js";
+import { Person, personSelectionMold }                      from './pages/person/person.js';
 
 import { carPageCss }                                       from "./pages/car/instantUpdateProjector.js";
-import { carProjectDetailView, carProjectMasterView }          from "./pages/car/masterDetailProjector.js";
-import { personPageCss }                                       from "./pages/person/instantUpdateProjector.js";
-import { personProjectDetailView, personProjectMasterView }          from "./pages/person/masterDetailProjector.js";
-import { EventType } from "./navigation/EventType.js";
+import { carProjectDetailView, carProjectMasterView }       from "./pages/car/masterDetailProjector.js";
+import { personPageCss }                                    from "./pages/person/instantUpdateProjector.js";
+import { personProjectDetailView, personProjectMasterView } from "./pages/person/masterDetailProjector.js";
 
 /********************************** SETUP ****************************************/
 
@@ -26,13 +26,49 @@ const style = document.getElementById('style');
 
 /********************************** NAVIGATION ****************************************/
 
-const navModel = Navigation('home'); //@TODO implement logic for order
+const navModel = Navigation('home');
 
 const navController = NavigationController(navModel);
 
 const navProjector = NavigationProjector(navController);
 
 navProjector.projectNavigation();
+
+
+/********************************** HOME ****************************************/
+
+navController.addNavigationPoint('home', (navEvent) => {
+    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'home') {
+        content.innerHTML = '';
+        h1.innerText = navEvent.getValue().toUpperCase();
+        content.appendChild(h1);
+        const div = document.createElement('div');
+        const input = document.createElement('input');
+        input.type = 'text';
+        const button = document.createElement('button');
+        button.innerText = "Create new navigation element";
+        div.appendChild(input);
+        div.appendChild(button);
+        button.onclick = () => navController.addNavigationPoint(input.value, (navEvent) => {
+            if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === input.value) {
+                content.innerHTML = '';
+                h1.innerText = navEvent.getValue().toUpperCase();
+                content.appendChild(h1);
+                const div = document.createElement('div');
+                const p = document.createElement('p');
+                const trigger = document.createElement('button');
+                let counter = 0;
+                p.innerText = input.value + ': ' + counter;
+                div.appendChild(p);
+                trigger.innerText = "Count";
+                trigger.onclick = () => p.innerText = input.value + ': ' + ++counter;
+                div.appendChild(trigger);
+                content.appendChild(div);
+            }
+        });
+        content.appendChild(div);
+    }
+});
 
 /********************************** CAR ****************************************/
 
@@ -58,7 +94,7 @@ navController.addNavigationPoint('car', (navEvent) => {
 
         document.getElementById('plus').onclick    = _ => carListController.addModel();
     }
-})
+});
 
 /********************************** PERSON ****************************************/
 
@@ -83,7 +119,7 @@ navController.addNavigationPoint('person', (navEvent) => {
 
         document.getElementById('plus').onclick    = _ => personListController.addModel();
     }
-})
+});
 
 const baseConstructForMDView = () => {
     const master = document.createElement('div');
