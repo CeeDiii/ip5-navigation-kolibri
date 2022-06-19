@@ -29,7 +29,7 @@ const Navigation = (homePage) => {
         },
         addNavigationPoint: newNavPoint => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
-            if(navPoints.length > 0 && navPoints.find(navPoint => navPoint !== newNavPoint) === undefined) return false;
+            if(navPoints.length > 0 && navPoints.indexOf(newNavPoint) >= 0) return false;
             navPoints.push(newNavPoint);
             navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint)));
             return true;
