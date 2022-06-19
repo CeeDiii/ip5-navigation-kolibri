@@ -32,12 +32,9 @@ const navController = NavigationController(navModel);
 
 const navProjector = NavigationProjector(navController);
 
-navModel.addNavigationPoint('person');
-navModel.addNavigationPoint('car');
-
 /********************************** CAR ****************************************/
 
-navController.addModelChangeListener((navEvent) => {
+navController.addNavigationPoint('car', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'car') {
         content.innerHTML = '';
         h1.innerText = navEvent.getValue().toUpperCase();
@@ -63,7 +60,7 @@ navController.addModelChangeListener((navEvent) => {
 
 /********************************** PERSON ****************************************/
 
-navController.addModelChangeListener((navEvent) => {
+navController.addNavigationPoint('person', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'person') {
         content.innerHTML = '';
         h1.innerText = navEvent.getValue().toUpperCase();

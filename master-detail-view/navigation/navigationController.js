@@ -1,10 +1,11 @@
-
 import { EventType } from './EventType.js';
+
 export { NavigationController }
 
 const NavigationController = model => {
     const modelChangeListeners = [];
 
+    // Set starting location
     window.location.hash = model.getLocation();
 
     // Use native browser functionality with hashes to reload content from model
@@ -38,16 +39,15 @@ const NavigationController = model => {
 
     model.addNavigationListener(onModelChange);
 
-    /**
-     * Return all navigation points
-     *
-     */
-    const getNavigationPoints = () => {
-        return model.getNavigationPoints();
-    }
-
     return {
         addModelChangeListener,
-        getNavigationPoints
+        addNavigationPoint: (newNavPoint, callback) => { 
+            modelChangeListeners.push(callback);
+            return model.addNavigationPoint(newNavPoint); 
+        },
+        getNavigationPoints: () => { return model.getNavigationPoints(); },
+        setOrderOfNavigationPoint: (navPoint, newIndex) => { return model.setOrderOfNavigationPoint(navPoint, newIndex); }
     }
 }
+
+//@TODO comment / document
