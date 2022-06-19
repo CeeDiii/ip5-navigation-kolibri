@@ -30,7 +30,7 @@ const NavigationController = model => {
      *
      */
     const onModelChange = navEvent => {
-        if (navEvent.getEventType() === EventType.PAGE_CHANGE && window.location.hash !== navEvent.getValue()) {
+        if (navEvent.getEventType() === EventType.PAGE_CHANGE && window.location.hash !== navEvent.getHash()) {
             window.location.hash = navEvent.getValue();
         }
         modelChangeListeners.forEach(callback => callback(navEvent));

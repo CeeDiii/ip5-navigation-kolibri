@@ -6,15 +6,19 @@ export { NavigationEvent }
  *
  * @typedef {Object} NavigationEvent
  * @param   {EventType} type
- * @param   {Object} val
+ * @param   {string} val
  * 
  */
 const NavigationEvent = (type, val) => {
+    if (!val.startsWith("#")) val = '#' + val;
+
     const eventType = type;
-    const value = val;
+    const hash = val;
+    const value = val.substring(1);
 
     return {
         getEventType: () => { return eventType; },
+        getHash:      () => { return hash; },
         getValue:     () => { return value; }
     }
 
