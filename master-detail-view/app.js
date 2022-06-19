@@ -32,6 +32,8 @@ const navController = NavigationController(navModel);
 
 const navProjector = NavigationProjector(navController);
 
+navProjector.projectNavigation();
+
 /********************************** CAR ****************************************/
 
 navController.addNavigationPoint('car', (navEvent) => {

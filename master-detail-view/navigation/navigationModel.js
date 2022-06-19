@@ -35,6 +35,15 @@ const Navigation = (homePage) => {
             return true;
         },
         getNavigationPoints: () => navigationPoints.getObs(VALUE).getValue(),
+
+        setOrderOfNavigationPoint: (navPoint, newIndex) => {
+            const navPoints = navigationPoints.getObs(VALUE).getValue();
+            const current = navPoints.indexOf(navPoint);
+            if (current >= 0 && current != newIndex) {
+                navPoints.splice(newIndex, 0, navPoints.splice(current, 1)[0]);
+                navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint)));
+            }
+        }
     }
 }
 
