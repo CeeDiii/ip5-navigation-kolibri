@@ -10,6 +10,4 @@ const controller = NavigationController(model);
 
 const projector = NavigationProjector(controller);
 
-document.getElementsByTagName('body')[0].innerHTML = projector;
-
 //@TODO rename and relocate (one starter.js for navigation, car and person)

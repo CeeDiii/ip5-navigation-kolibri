@@ -2,12 +2,13 @@ export { NavigationProjector }
 
 const NavigationProjector = controller => {
     //@BIG TODO: implement projector
-    let returnValue = '';
+    const nav = document.getElementById('nav');
     for(let item of controller.getNavigationPoints()) {
-        returnValue += ' ' + item;
+        const a = document.createElement('a');
+        a.setAttribute('href', '#' + item)
+        a.innerText = item;
+        nav.appendChild(a);
     }
 
-    controller.addModelChangeListener(() => console.log("hello"));
-
-    return '<p>irgend öppis ' + returnValue + '</p>';
+    controller.addModelChangeListener((navEvent) => console.log(navEvent.getHash()));
 }
