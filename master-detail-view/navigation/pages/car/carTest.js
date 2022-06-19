@@ -5,7 +5,7 @@ import { ListController, SelectionController,  } from './carController.js';
 import { Car, selectionMold }                 from './car.js';
 import { TestSuite }                             from "../../../kolibri/util/test.js";
 import { fireEvent, INPUT}                       from "../../../kolibri/util/dom.js";
-import {projectDetailView, projectMasterView}    from "./masterDetailProjector.js";
+import { carProjectDetailView, carProjectMasterView }    from "./masterDetailProjector.js";
 
 const personSuite = TestSuite("example/car/car");
 
@@ -15,8 +15,8 @@ personSuite.add("master add remove", assert => {
     const masterController      = ListController(Car);
     const selectionController   = SelectionController(selectionMold);
     // create the sub-views, incl. binding
-    const [masterContainer]     = projectMasterView(masterController, selectionController);
-    projectDetailView(selectionController, detailCard);
+    const [masterContainer]     = carProjectMasterView(masterController, selectionController);
+    carProjectDetailView(selectionController, detailCard);
 
     const elementsPerRow = 1 + 2 * 2; // delete button plus 2 times label with input
 
@@ -42,8 +42,8 @@ personSuite.add("selections", assert => {
     const masterController      = ListController(Car);
     const selectionController   = SelectionController(selectionMold);
     // create the sub-views, incl. binding
-    const [masterContainer]     = projectMasterView(masterController, selectionController);
-    const [detail]              = projectDetailView(selectionController, detailCard);
+    const [masterContainer]     = carProjectMasterView(masterController, selectionController);
+    const [detail]              = carProjectDetailView(selectionController, detailCard);
 
     assert.is(masterContainer.querySelectorAll(".selected").length, 0);
     assert.is(detailCard.classList.contains("no-detail"), true);
@@ -79,8 +79,8 @@ personSuite.add("multi-way editing", assert => {
     const masterController      = ListController(Car);
     const selectionController   = SelectionController(selectionMold);
     // create the sub-views, incl. binding
-    const [masterContainer]     = projectMasterView(masterController, selectionController);
-    const [detail]              = projectDetailView(selectionController, detailCard);
+    const [masterContainer]     = carProjectMasterView(masterController, selectionController);
+    const [detail]              = carProjectDetailView(selectionController, detailCard);
 
     masterController.addModel(); // make two models,
     masterController.addModel(); // select the second one

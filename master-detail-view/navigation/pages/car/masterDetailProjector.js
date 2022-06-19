@@ -8,7 +8,7 @@ import {
 }                                           from "./instantUpdateProjector.js";
 import {ALL_ATTRIBUTE_NAMES, carSelectionMold} from "./car.js";
 
-export { projectMasterView, projectDetailView }
+export { projectMasterView as carProjectMasterView, projectDetailView as carProjectDetailView }
 
 /**
  * Create the master view, bind against the controllers, and return the view.
@@ -22,10 +22,10 @@ const projectMasterView = (listController, selectionController) => {
 
     /** @type HTMLDivElement */ const rootElement = document.createElement("div");
 
-    const renderRow = person => {
-        const rowElements = projectListItem(listController, selectionController, person, ALL_ATTRIBUTE_NAMES);
+    const renderRow = car => {
+        const rowElements = projectListItem(listController, selectionController, car, ALL_ATTRIBUTE_NAMES);
         rootElement.append(...rowElements);
-        selectionController.setSelectedModel(person);
+        selectionController.setSelectedModel(car);
     }
 
     rootElement.classList.add(masterClassName);
@@ -56,9 +56,9 @@ const projectDetailView = (selectionController, detailCard) => {
 
     const form = projectForm(selectionController, detailCard, carSelectionMold, ALL_ATTRIBUTE_NAMES); // only once, view is stable, binding is stable
 
-    selectionController.onModelSelected( selectedPersonModel =>
+    selectionController.onModelSelected( selectedCarModel =>
         [...ALL_ATTRIBUTE_NAMES, "detailed"].forEach( name =>
-            carSelectionMold[name].setQualifier(selectedPersonModel[name].getQualifier())
+            carSelectionMold[name].setQualifier(selectedCarModel[name].getQualifier())
         )
     );
 

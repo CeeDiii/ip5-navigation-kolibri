@@ -3,7 +3,7 @@ import { VALUE }                            from "../../../kolibri/presentationM
 import { projectInstantInput }              from "../../../kolibri/projector/simpleForm/simpleInputProjector.js";
 import { SimpleAttributeInputController }   from "../../../kolibri/projector/simpleForm/simpleInputController.js";
 
-export { projectListItem, selectListItemForModel, removeListItemForModel, projectForm,  masterClassName, pageCss }
+export { projectListItem, selectListItemForModel, removeListItemForModel, projectForm,  masterClassName, pageCss as carPageCss}
 
 /**
  * A name that serves multiple purposes as it allows setting up specific css styling by using a consistent

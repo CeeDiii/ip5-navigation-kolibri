@@ -8,7 +8,7 @@ import {
 }                                           from "./instantUpdateProjector.js";
 import {ALL_ATTRIBUTE_NAMES, personSelectionMold} from "./person.js";
 
-export { projectMasterView, projectDetailView }
+export { projectMasterView as personProjectMasterView, projectDetailView as personProjectDetailView }
 
 /**
  * Create the master view, bind against the controllers, and return the view.
