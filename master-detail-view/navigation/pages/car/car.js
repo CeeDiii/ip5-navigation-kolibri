@@ -1,6 +1,6 @@
-import {Attribute, EDITABLE, LABEL, TYPE, VALUE, VALID } from "../kolibri/presentationModel.js";
+import {Attribute, EDITABLE, LABEL, TYPE, VALUE, VALID } from "../../../kolibri/presentationModel.js";
 
-export { Car, reset, ALL_ATTRIBUTE_NAMES, selectionMold }
+export { Car, reset, ALL_ATTRIBUTE_NAMES, selectionMold as carSelectionMold}
 
 /**
  * Names of those attributes of a Car that are to appear on the UI.

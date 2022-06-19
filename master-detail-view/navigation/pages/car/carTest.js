@@ -3,8 +3,8 @@
 
 import { ListController, SelectionController,  } from './carController.js';
 import { Car, selectionMold }                 from './car.js';
-import { TestSuite }                             from "../kolibri/util/test.js";
-import { fireEvent, INPUT}                       from "../kolibri/util/dom.js";
+import { TestSuite }                             from "../../../kolibri/util/test.js";
+import { fireEvent, INPUT}                       from "../../../kolibri/util/dom.js";
 import {projectDetailView, projectMasterView}    from "./masterDetailProjector.js";
 
 const personSuite = TestSuite("example/car/car");

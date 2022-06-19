@@ -1,14 +1,14 @@
 /**
- * @module carController as shallow wrappers around observables.
+ * @module personController as shallow wrappers around observables.
  * For the moment, this might seem over-engineered - and it is.
  * We do it anyway to follow the canonical structure of classical MVC where
  * views only ever know the controller API, not the model directly.
  */
-import { ObservableList, Observable }   from "../kolibri/observable.js";
-import { EDITABLE, VALUE }              from "../kolibri/presentationModel.js"
-import { Car, reset }                   from "./car.js"
+import { ObservableList, Observable }   from "../../../kolibri/observable.js";
+import { EDITABLE, VALUE }              from "../../../kolibri/presentationModel.js"
+import { Person, reset }                from "./person.js"
 
-export { ListController, SelectionController }
+export { ListController as PersonListController, SelectionController as PersonSelectionController }
 
 /**
  * @typedef ListControllerType<T>
@@ -40,16 +40,16 @@ const ListController = modelConstructor => {
 };
 
 /**
- * Representing a selection when no car is selected.
+ * Representing a selection when no person is selected.
  * Null-Object Pattern.
  * @private
  */
-const noSelection = reset(Car());
-noSelection.brand.setQualifier("Car.none.brand");
-noSelection.model .setQualifier("Car.none.model");
+const noSelection = reset(Person());
+noSelection.firstname.setQualifier("Car.none.firstname");
+noSelection.lastname .setQualifier("Car.none.lastname");
 noSelection.detailed .setQualifier("Car.none.detailed");
-noSelection.brand.getObs(EDITABLE).setValue(false); // the non-selection is not editable
-noSelection.model .getObs(EDITABLE).setValue(false);
+noSelection.firstname.getObs(EDITABLE).setValue(false); // the non-selection is not editable
+noSelection.lastname .getObs(EDITABLE).setValue(false);
 noSelection.detailed .getObs(VALUE)   .setValue(false);    // detail view can fold
 
 /**

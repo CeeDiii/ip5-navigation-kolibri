@@ -6,7 +6,7 @@ import {
     removeListItemForModel,
     selectListItemForModel
 }                                           from "./instantUpdateProjector.js";
-import {ALL_ATTRIBUTE_NAMES, selectionMold} from "./car.js";
+import {ALL_ATTRIBUTE_NAMES, personSelectionMold} from "./person.js";
 
 export { projectMasterView, projectDetailView }
 
@@ -54,11 +54,11 @@ const projectMasterView = (listController, selectionController) => {
  */
 const projectDetailView = (selectionController, detailCard) => {
 
-    const form = projectForm(selectionController, detailCard, selectionMold, ALL_ATTRIBUTE_NAMES); // only once, view is stable, binding is stable
+    const form = projectForm(selectionController, detailCard, personSelectionMold, ALL_ATTRIBUTE_NAMES); // only once, view is stable, binding is stable
 
     selectionController.onModelSelected( selectedPersonModel =>
         [...ALL_ATTRIBUTE_NAMES, "detailed"].forEach( name =>
-            selectionMold[name].setQualifier(selectedPersonModel[name].getQualifier())
+            personSelectionMold[name].setQualifier(selectedPersonModel[name].getQualifier())
         )
     );
 

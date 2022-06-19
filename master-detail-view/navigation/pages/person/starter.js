@@ -1,4 +1,4 @@
-import { ListController, SelectionController }           from "./personController.js";
+import { PersonListController, SelectionController }           from "./personController.js";
 import { Person, selectionMold }                         from './person.js';
 
 import { pageCss }                                       from "./instantUpdateProjector.js";
