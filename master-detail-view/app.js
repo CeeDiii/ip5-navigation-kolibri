@@ -44,14 +44,11 @@ navController.addNavigationPoint('home', (navEvent) => {
         content.appendChild(h1);
         const div = document.createElement('div');
         div.style = 'display: flex; justify-content: center';
-        const input = document.createElement('input');
-        input.type = 'text';
         const button = document.createElement('button');
         button.innerText = "Create new navigation element";
-        div.appendChild(input);
         div.appendChild(button);
-        button.onclick = () => navController.addNavigationPoint(input.value, (navEvent) => {
-            if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === input.value) {
+        button.onclick = () => navController.addNavigationPoint("demo", (navEvent) => {
+            if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === "demo") {
                 content.innerHTML = '';
                 h1.innerText = navEvent.getValue().toUpperCase();
                 content.appendChild(h1);
@@ -60,10 +57,10 @@ navController.addNavigationPoint('home', (navEvent) => {
                 const p = document.createElement('p');
                 const trigger = document.createElement('button');
                 let counter = 0;
-                p.innerText = input.value + ': ' + counter;
+                p.innerText = 'demo: ' + counter;
                 div.appendChild(p);
                 trigger.innerText = "Count";
-                trigger.onclick = () => p.innerText = input.value + ': ' + ++counter;
+                trigger.onclick = () => p.innerText = 'demo: ' + ++counter;
                 div.appendChild(trigger);
                 content.appendChild(div);
             }
