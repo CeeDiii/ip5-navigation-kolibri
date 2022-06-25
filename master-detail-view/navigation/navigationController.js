@@ -53,11 +53,12 @@ const NavigationController = model => {
     return {
         addModelChangeListener,
         addNavigationPoint: (newNavPoint, callback) => { 
-            modelChangeListeners.push(callback);
+            addModelChangeListener(callback);
             return model.addNavigationPoint(newNavPoint); 
         },
-        getNavigationPoints: () => { return model.getNavigationPoints(); },
-        setOrderOfNavigationPoint: (navPoint, newIndex) => { return model.setOrderOfNavigationPoint(navPoint, newIndex); }
+        getLocation: () => model.getLocation(),
+        getNavigationPoints: () => model.getNavigationPoints(),
+        setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex)
     }
 }
 
