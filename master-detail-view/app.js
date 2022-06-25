@@ -38,7 +38,7 @@ navProjector.projectNavigation();
 /********************************** HOME ****************************************/
 
 navController.addNavigationPoint('home', (navEvent) => {
-    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'home') {
+    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'home') {
         content.innerHTML = '';
         h1.innerText = navEvent.getValue().toUpperCase();
         content.appendChild(h1);
@@ -48,7 +48,7 @@ navController.addNavigationPoint('home', (navEvent) => {
         button.innerText = "Create new navigation element";
         div.appendChild(button);
         button.onclick = () => navController.addNavigationPoint("demo", (navEvent) => {
-            if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === "demo") {
+            if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === "demo") {
                 content.innerHTML = '';
                 h1.innerText = navEvent.getValue().toUpperCase();
                 content.appendChild(h1);
@@ -72,7 +72,7 @@ navController.addNavigationPoint('home', (navEvent) => {
 /********************************** CAR ****************************************/
 
 navController.addNavigationPoint('car', (navEvent) => {
-    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'car') {
+    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'car') {
         content.innerHTML = '';
         h1.innerText = navEvent.getValue().toUpperCase();
         content.appendChild(h1);
@@ -98,7 +98,7 @@ navController.addNavigationPoint('car', (navEvent) => {
 /********************************** PERSON ****************************************/
 
 navController.addNavigationPoint('person', (navEvent) => {
-    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue() === 'person') {
+    if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'person') {
         content.innerHTML = '';
         h1.innerText = navEvent.getValue().toUpperCase();
         content.appendChild(h1);
