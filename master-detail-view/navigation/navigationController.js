@@ -1,4 +1,5 @@
 import { EventType } from './EventType.js';
+import { NavigationEvent } from "./NavigationEvent.js";
 
 export { NavigationController }
 
@@ -6,13 +7,23 @@ const NavigationController = model => {
     const modelChangeListeners = [];
 
     // Set starting location
-    window.location.hash = model.getLocation();
+    if (window.localStorage.getItem('lastNavPoint') === null)    {
+        window.location.hash = model.getLocation();
+    } else {
+        window.location.hash = window.localStorage.getItem('lastNavPoint');
+    }
 
     // Use native browser functionality with hashes to reload content from model
     window.onhashchange = () => {
         if (model.getNavigationPoints().find(element => element === window.location.hash) === 'undefined') return;
 
-        model.setLocation(window.location.hash)
+        model.setLocation(window.location.hash);
+        window.localStorage.setItem('lastNavPoint', model.getLocation());
+    }
+
+    // Sending event after document is loaded for content to render
+    window.onload = () => {
+        modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.localStorage.getItem('lastNavPoint'))));
     }
 
     /**
