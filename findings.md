@@ -25,7 +25,7 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 #### Nachteile
 * Das verhalten der Navigationsrichtung kann von der Erwartung des Nutzers abweichen
 * Trotzdem abhängig vom window.location.hash
-* Nach refresh bleibt die Browservative Historie, die Applikationseigene wird aber verworfen
+* Nach refresh bleibt die Browsernative Historie, die Applikationseigene wird aber verworfen
 ### URI vs. URL (& URN)
 (siehe Grafik: https://danielmiessler.com/images/url-structure-and-scheme-2022.png)
 #### URI
