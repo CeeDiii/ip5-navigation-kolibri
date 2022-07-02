@@ -86,23 +86,30 @@ navController.addNavigationPoint('home', (navEvent) => {
 
 navController.addNavigationPoint('car', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'car') {
-        content.innerHTML = '';
-        style.innerHTML =     '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
-                              '<link rel="stylesheet"                     href="./pages/car/instantUpdateProjector.css">'
+        if (navController.getPageContent('car') === undefined) {
 
-        // create the sub-views, incl. binding
-        const [_, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
+            content.innerHTML = '';
+            style.innerHTML = '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
+                '<link rel="stylesheet"                     href="./pages/car/instantUpdateProjector.css">'
 
-        const carMaster = carProjectMasterView(carListController, carSelectionController, );
-        document.getElementById('masterContainer').append(...carMaster);
+            // create the sub-views, incl. binding
+            const [wrapper, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
 
-        const carDetailForm = carProjectDetailView(carSelectionController, detail);
-        document.getElementById('detailContainer').append(...carDetailForm);
+            content.append(wrapper);
 
-        document.querySelector('head style').textContent += carPageCss;
-        // binding of the main view
+            const carMaster = carProjectMasterView(carListController, carSelectionController,);
+            document.getElementById('masterContainer').append(...carMaster);
 
-        document.getElementById('plus').onclick    = _ => carListController.addModel();
+            const carDetailForm = carProjectDetailView(carSelectionController, detail);
+            document.getElementById('detailContainer').append(...carDetailForm);
+
+            document.querySelector('head style').textContent += carPageCss;
+            // binding of the main view
+
+            document.getElementById('plus').onclick = _ => carListController.addModel();
+
+            navController.savePageContent('car', wrapper);
+        }
     }
 });
 
@@ -110,22 +117,29 @@ navController.addNavigationPoint('car', (navEvent) => {
 
 navController.addNavigationPoint('person', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'person') {
-        content.innerHTML = '';
-        style.innerHTML =     '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
-                              '<link rel="stylesheet"                     href="./pages/person/instantUpdateProjector.css">'
-        // create the sub-views, incl. binding
-        const [_, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
+        if (navController.getPageContent('person') === undefined) {
 
-        const personMaster = personProjectMasterView(personListController, personSelectionController, );
-        document.getElementById('masterContainer').append(...personMaster);
+            content.innerHTML = '';
+            style.innerHTML = '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
+                '<link rel="stylesheet"                     href="./pages/person/instantUpdateProjector.css">'
+            // create the sub-views, incl. binding
+            const [wrapper, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
 
-        const personDetailForm = personProjectDetailView(personSelectionController, detail);
-        document.getElementById('detailContainer').append(...personDetailForm);
+            content.append(wrapper);
 
-        document.querySelector('head style').textContent += personPageCss;
-        // binding of the main view
+            const personMaster = personProjectMasterView(personListController, personSelectionController,);
+            document.getElementById('masterContainer').append(...personMaster);
 
-        document.getElementById('plus').onclick    = _ => personListController.addModel();
+            const personDetailForm = personProjectDetailView(personSelectionController, detail);
+            document.getElementById('detailContainer').append(...personDetailForm);
+
+            document.querySelector('head style').textContent += personPageCss;
+            // binding of the main view
+
+            document.getElementById('plus').onclick = _ => personListController.addModel();
+
+            navController.savePageContent('person', wrapper);
+        }
     }
 });
 
@@ -160,7 +174,6 @@ const baseConstructForMDView = (pageName) => {
     detailHolder.id = 'detailContainer';
     detail.appendChild(detailHolder);
     wrapper.appendChild(detail);
-    content.append(wrapper);
 
-    return [master, detail];
+    return [wrapper, detail];
 }
