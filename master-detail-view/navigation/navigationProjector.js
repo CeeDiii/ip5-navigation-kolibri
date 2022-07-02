@@ -29,6 +29,13 @@ const NavigationProjector = controller => {
 
     controller.addModelChangeListener((navEvent) => {
         if (navEvent.getEventType() === EventType.NAVBAR_CHANGE) projectNavigation();
+        if (navEvent.getEventType() === EventType.PAGE_CHANGE) {
+            const pageContent = controller.getPageContent(navEvent.getValue());
+            if(pageContent !== undefined) {
+                document.getElementById('content').innerHTML = '';
+                document.getElementById('content').append(pageContent);
+            }
+        }
     });
 
     return {

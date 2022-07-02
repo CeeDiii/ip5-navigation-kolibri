@@ -23,7 +23,7 @@ const NavigationController = model => {
 
     // Sending event after document is loaded for content to render
     window.onload = () => {
-        modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.localStorage.getItem('lastNavPoint'))));
+        modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.localStorage.getItem('lastNavPoint'), window.localStorage.getItem('lastNavPoint'))));
     }
 
     /**
@@ -58,7 +58,9 @@ const NavigationController = model => {
         },
         getLocation: () => model.getLocation(),
         getNavigationPoints: () => model.getNavigationPoints(),
-        setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex)
+        setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex),
+        savePageContents: (pageName, currentContent) => model.savePageContents(pageName, currentContent),
+        getPageContent: (pageName) => model.getPageContent(pageName)
     }
 }
 

@@ -14,6 +14,7 @@ const Navigation = (homePage) => {
     const navigationPoints    = Attribute([]);
     const location            = Attribute(homePage);
     const navigationListeners = Attribute([]);
+    const pageContents        = new Map();
 
     const addNavigationPoint = newNavPoint => {
         const navPoints = navigationPoints.getObs(VALUE).getValue();
@@ -21,7 +22,7 @@ const Navigation = (homePage) => {
         const navPointAttr = Attribute(newNavPoint);
         navPointAttr.setConverter(attr => attr.toString());
         navPoints.push(navPointAttr);
-        navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint)));
+        navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint, newNavPoint)));
         return true;
     }
 
@@ -34,9 +35,10 @@ const Navigation = (homePage) => {
         addNavigationPoint,
         getLocation: () => location.getObs(VALUE).getValue(),
         setLocation: newLocation => {
-            if(location.getObs(VALUE).getValue() === newLocation) return;
+            const lastLocation = location.getObs(VALUE).getValue();
+            if(lastLocation === newLocation) return;
             location.getObs(VALUE).setValue(newLocation);
-            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue())));
+            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue(), lastLocation)));
         },
         getNavigationPoints: () => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
@@ -52,8 +54,15 @@ const Navigation = (homePage) => {
             const current = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue() === navPoint);
             if (current >= 0 && current != newIndex) {
                 navPoints.splice(newIndex, 0, navPoints.splice(current, 1)[0]);
-                navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint)));
+                navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint, navPoint)));
             }
+        },
+
+        savePageContents: (pageName, currentContent) => {
+            pageContents.set(pageName, currentContent);
+        },
+        getPageContent: (pageName) => {
+            return pageContents.get(pageName);
         }
     }
 }

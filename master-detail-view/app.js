@@ -41,18 +41,21 @@ navController.addNavigationPoint('home', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'home') {
         content.innerHTML = '';
         h1.innerText = navEvent.getValue().toUpperCase();
-        content.appendChild(h1);
+        const wrapper = document.createElement('div');
+        wrapper.id = 'content-wrapper';
         const div = document.createElement('div');
         div.style = 'display: flex; justify-content: center';
         const button = document.createElement('button');
         button.innerText = "Create new navigation element";
-        div.appendChild(button);
+        wrapper.append(h1);
+        div.append(button);
         button.onclick = () => navController.addNavigationPoint("demo", (navEvent) => {
             if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === "demo") {
+                const wrapper = document.createElement('div');
                 content.innerHTML = '';
                 h1.innerText = navEvent.getValue().toUpperCase();
-                content.appendChild(h1);
                 const div = document.createElement('div');
+                wrapper.append(h1);
                 div.style = 'display: flex; justify-content: center';
                 const p = document.createElement('p');
                 const trigger = document.createElement('button');
@@ -62,10 +65,12 @@ navController.addNavigationPoint('home', (navEvent) => {
                 trigger.innerText = "Count";
                 trigger.onclick = () => p.innerText = 'demo: ' + ++counter;
                 div.appendChild(trigger);
-                content.appendChild(div);
+                wrapper.append(div);
+                content.appendChild(wrapper);
             }
         });
-        content.appendChild(div);
+        wrapper.append(div);
+        content.appendChild(wrapper);
     }
 });
 
@@ -74,13 +79,11 @@ navController.addNavigationPoint('home', (navEvent) => {
 navController.addNavigationPoint('car', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'car') {
         content.innerHTML = '';
-        h1.innerText = navEvent.getValue().toUpperCase();
-        content.appendChild(h1);
         style.innerHTML =     '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
                               '<link rel="stylesheet"                     href="./pages/car/instantUpdateProjector.css">'
 
         // create the sub-views, incl. binding
-        const [_, detail] = baseConstructForMDView();
+        const [_, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
 
         const carMaster = carProjectMasterView(carListController, carSelectionController, );
         document.getElementById('masterContainer').append(...carMaster);
@@ -100,12 +103,10 @@ navController.addNavigationPoint('car', (navEvent) => {
 navController.addNavigationPoint('person', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'person') {
         content.innerHTML = '';
-        h1.innerText = navEvent.getValue().toUpperCase();
-        content.appendChild(h1);
         style.innerHTML =     '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
                               '<link rel="stylesheet"                     href="./pages/person/instantUpdateProjector.css">'
         // create the sub-views, incl. binding
-        const [_, detail] = baseConstructForMDView();
+        const [_, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
 
         const personMaster = personProjectMasterView(personListController, personSelectionController, );
         document.getElementById('masterContainer').append(...personMaster);
@@ -120,7 +121,12 @@ navController.addNavigationPoint('person', (navEvent) => {
     }
 });
 
-const baseConstructForMDView = () => {
+const baseConstructForMDView = (pageName) => {
+    const wrapper = document.createElement('div');
+    wrapper.id = 'content-wrapper';
+    h1.innerText = pageName.toUpperCase();
+    wrapper.append(h1);
+
     const master = document.createElement('div');
     master.classList.add('card');
 
@@ -134,7 +140,7 @@ const baseConstructForMDView = () => {
     button.autofocus = true;
     button.innerText = '+';
     masterHolder.appendChild(button);
-    content.appendChild(master);
+    wrapper.appendChild(master);
 
     const detail = document.createElement('div');
     detail.classList.add('card');
@@ -144,7 +150,8 @@ const baseConstructForMDView = () => {
     detailHolder.classList.add('holder');
     detailHolder.id = 'detailContainer';
     detail.appendChild(detailHolder);
-    content.appendChild(detail);
+    wrapper.appendChild(detail);
+    content.append(wrapper);
 
     return [master, detail];
 }
