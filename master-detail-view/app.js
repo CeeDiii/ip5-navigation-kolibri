@@ -20,7 +20,6 @@ const carSelectionController = CarSelectionController(carSelectionMold);
 const personListController      = PersonListController(Person);
 const personSelectionController = PersonSelectionController(personSelectionMold);
 
-const h1 = document.createElement('h1');
 const content = document.getElementById('content');
 const style = document.getElementById('style');
 
@@ -39,38 +38,47 @@ navProjector.projectNavigation();
 
 navController.addNavigationPoint('home', (navEvent) => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'home') {
-        content.innerHTML = '';
-        h1.innerText = navEvent.getValue().toUpperCase();
-        const wrapper = document.createElement('div');
-        wrapper.id = 'content-wrapper';
-        const div = document.createElement('div');
-        div.style = 'display: flex; justify-content: center';
-        const button = document.createElement('button');
-        button.innerText = "Create new navigation element";
-        wrapper.append(h1);
-        div.append(button);
-        button.onclick = () => navController.addNavigationPoint("demo", (navEvent) => {
-            if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === "demo") {
-                const wrapper = document.createElement('div');
-                content.innerHTML = '';
-                h1.innerText = navEvent.getValue().toUpperCase();
-                const div = document.createElement('div');
-                wrapper.append(h1);
-                div.style = 'display: flex; justify-content: center';
-                const p = document.createElement('p');
-                const trigger = document.createElement('button');
-                let counter = 0;
-                p.innerText = 'demo: ' + counter;
-                div.appendChild(p);
-                trigger.innerText = "Count";
-                trigger.onclick = () => p.innerText = 'demo: ' + ++counter;
-                div.appendChild(trigger);
-                wrapper.append(div);
-                content.appendChild(wrapper);
-            }
-        });
-        wrapper.append(div);
-        content.appendChild(wrapper);
+        if (navController.getPageContent('home') === undefined) {
+            content.innerHTML = '';
+            const h1 = document.createElement('h1');
+            h1.innerText = navEvent.getValue().toUpperCase();
+            const wrapper = document.createElement('div');
+            wrapper.id = 'content-wrapper';
+            const div = document.createElement('div');
+            div.style = 'display: flex; justify-content: center';
+            const button = document.createElement('button');
+            button.innerText = "Create new navigation element";
+            wrapper.append(h1);
+            div.append(button);
+            wrapper.append(div);
+            content.appendChild(wrapper);
+            navController.savePageContent('home', wrapper);
+            button.onclick = () => navController.addNavigationPoint("demo", (navEvent) => {
+                if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === "demo") {
+                    if(navController.getPageContent('demo') === undefined) {
+                        const wrapper = document.createElement('div');
+                        wrapper.id = 'content-wrapper';
+                        content.innerHTML = '';
+                        const h1 = document.createElement('h1');
+                        h1.innerText = navEvent.getValue().toUpperCase();
+                        const div = document.createElement('div');
+                        wrapper.append(h1);
+                        div.style = 'display: flex; justify-content: center';
+                        const p = document.createElement('p');
+                        const trigger = document.createElement('button');
+                        let counter = 0;
+                        p.innerText = 'demo: ' + counter;
+                        div.appendChild(p);
+                        trigger.innerText = "Count";
+                        trigger.onclick = () => p.innerText = 'demo: ' + ++counter;
+                        div.appendChild(trigger);
+                        wrapper.append(div);
+                        content.appendChild(wrapper);
+                        navController.savePageContent('demo', wrapper);
+                    }
+                }
+            });
+        }
     }
 });
 
@@ -124,6 +132,7 @@ navController.addNavigationPoint('person', (navEvent) => {
 const baseConstructForMDView = (pageName) => {
     const wrapper = document.createElement('div');
     wrapper.id = 'content-wrapper';
+    const h1 = document.createElement('h1');
     h1.innerText = pageName.toUpperCase();
     wrapper.append(h1);
 

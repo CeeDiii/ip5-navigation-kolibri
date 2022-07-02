@@ -59,7 +59,7 @@ const NavigationController = model => {
         getLocation: () => model.getLocation(),
         getNavigationPoints: () => model.getNavigationPoints(),
         setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex),
-        savePageContents: (pageName, currentContent) => model.savePageContents(pageName, currentContent),
+        savePageContent: (pageName, currentContent) => model.savePageContent(pageName, currentContent),
         getPageContent: (pageName) => model.getPageContent(pageName)
     }
 }

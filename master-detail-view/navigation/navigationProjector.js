@@ -32,8 +32,8 @@ const NavigationProjector = controller => {
         if (navEvent.getEventType() === EventType.PAGE_CHANGE) {
             const pageContent = controller.getPageContent(navEvent.getValue());
             if(pageContent !== undefined) {
-                document.getElementById('content').innerHTML = '';
-                document.getElementById('content').append(pageContent);
+                const oldContent = document.getElementById('content-wrapper');
+                document.getElementById('content').replaceChild(pageContent, oldContent);
             }
         }
     });

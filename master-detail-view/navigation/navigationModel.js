@@ -58,7 +58,7 @@ const Navigation = (homePage) => {
             }
         },
 
-        savePageContents: (pageName, currentContent) => {
+        savePageContent: (pageName, currentContent) => {
             pageContents.set(pageName, currentContent);
         },
         getPageContent: (pageName) => {
