@@ -6,19 +6,9 @@ export { NavigationController }
 const NavigationController = model => {
     const modelChangeListeners = [];
 
-    // Set starting location
-    if (window.localStorage.getItem('lastNavPoint') === null)    {
-        window.location.hash = model.getLocation();
-    } else {
-        window.location.hash = window.localStorage.getItem('lastNavPoint');
-    }
-
     // Use native browser functionality with hashes to reload content from model
     window.onhashchange = () => {
-        if (model.getNavigationPoints().find(element => element === window.location.hash) === 'undefined') return;
-
         model.setLocation(window.location.hash);
-        window.localStorage.setItem('lastNavPoint', model.getLocation());
     }
 
     // Sending event after document is loaded for content to render
@@ -52,13 +42,13 @@ const NavigationController = model => {
 
     return {
         addModelChangeListener,
+        getLocation: () => model.getLocation(),
         addNavigationPoint: (newNavPoint, callback) => { 
             addModelChangeListener(callback);
             return model.addNavigationPoint(newNavPoint); 
         },
-        getLocation: () => model.getLocation(),
-        getNavigationPoints: () => model.getNavigationPoints(),
         setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex),
+        getNavigationPoints: () => model.getNavigationPoints(),
         savePageContent: (pageName, currentContent) => model.savePageContent(pageName, currentContent),
         getPageContent: (pageName) => model.getPageContent(pageName)
     }

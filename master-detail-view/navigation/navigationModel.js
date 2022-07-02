@@ -33,7 +33,6 @@ const Navigation = (homePage) => {
         addNavigationListener: callback => {
             navigationListeners.push(callback);
         },
-        addNavigationPoint,
         getLocation: () => location.getObs(VALUE).getValue(),
         setLocation: newLocation => {
             const lastLocation = location.getObs(VALUE).getValue();
@@ -41,15 +40,7 @@ const Navigation = (homePage) => {
             location.getObs(VALUE).setValue(newLocation);
             navigationListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue(), lastLocation)));
         },
-        getNavigationPoints: () => {
-            const navPoints = navigationPoints.getObs(VALUE).getValue();
-            const retNavPoints = [];
-            navPoints.forEach(value => {
-                retNavPoints.push(value.getObs(VALUE).getValue());
-            });
-            return retNavPoints;
-        },
-
+        addNavigationPoint,
         setOrderOfNavigationPoint: (navPoint, newIndex) => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
             const current = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue().toLowerCase() === navPoint.toLowerCase());
@@ -58,6 +49,14 @@ const Navigation = (homePage) => {
                 navPoints.splice(newIndex, 0, currentItem);
                 navigationListeners.forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint, navPoint)));
             }
+        },
+        getNavigationPoints: () => {
+            const navPoints = navigationPoints.getObs(VALUE).getValue();
+            const retNavPoints = [];
+            navPoints.forEach(value => {
+                retNavPoints.push(value.getObs(VALUE).getValue());
+            });
+            return retNavPoints;
         },
 
         savePageContent: (pageName, currentContent) => {
