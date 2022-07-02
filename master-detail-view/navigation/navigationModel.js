@@ -13,16 +13,17 @@ export { Navigation }
 const Navigation = (homePage) => {
     const navigationPoints    = Attribute([]);
     const location            = Attribute(homePage);
-    const navigationListeners = Attribute([]);
+    const navigationListeners = [];
     const pageContents        = new Map();
 
     const addNavigationPoint = newNavPoint => {
         const navPoints = navigationPoints.getObs(VALUE).getValue();
-        if(navPoints.length > 0 && navPoints.filter(navObs => navObs.getObs(VALUE).getValue().toLowerCase() === newNavPoint).length > 0) return false;
+        const navPointExists = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue().toLowerCase() === newNavPoint.toLowerCase());
+        if(navPointExists !== -1) return false;
         const navPointAttr = Attribute(newNavPoint);
         navPointAttr.setConverter(attr => attr.toString());
         navPoints.push(navPointAttr);
-        navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint, newNavPoint)));
+        navigationListeners.forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint, newNavPoint)));
         return true;
     }
 
@@ -30,15 +31,15 @@ const Navigation = (homePage) => {
 
     return {
         addNavigationListener: callback => {
-            navigationListeners.getObs(VALUE).getValue().push(callback);
+            navigationListeners.push(callback);
         },
         addNavigationPoint,
         getLocation: () => location.getObs(VALUE).getValue(),
         setLocation: newLocation => {
             const lastLocation = location.getObs(VALUE).getValue();
-            if(lastLocation === newLocation) return;
+            if(lastLocation.toLowerCase() === newLocation.toLowerCase()) return;
             location.getObs(VALUE).setValue(newLocation);
-            navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue(), lastLocation)));
+            navigationListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, location.getObs(VALUE).getValue(), lastLocation)));
         },
         getNavigationPoints: () => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
@@ -51,10 +52,11 @@ const Navigation = (homePage) => {
 
         setOrderOfNavigationPoint: (navPoint, newIndex) => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
-            const current = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue() === navPoint);
+            const current = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue().toLowerCase() === navPoint.toLowerCase());
             if (current >= 0 && current != newIndex) {
-                navPoints.splice(newIndex, 0, navPoints.splice(current, 1)[0]);
-                navigationListeners.getObs(VALUE).getValue().forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint, navPoint)));
+                const currentItem = navPoints.splice(current, 1)[0]
+                navPoints.splice(newIndex, 0, currentItem);
+                navigationListeners.forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint, navPoint)));
             }
         },
 
