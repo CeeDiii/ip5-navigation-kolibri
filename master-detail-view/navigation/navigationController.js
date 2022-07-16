@@ -13,7 +13,7 @@ const NavigationController = model => {
 
     // Sending event after document is loaded for content to render
     window.onload = () => {
-        modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.localStorage.getItem('lastNavPoint'), window.localStorage.getItem('lastNavPoint'))));
+        modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.location.hash, window.location.hash)));
     }
 
     /**

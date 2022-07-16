@@ -17,8 +17,7 @@ const NavigationProjector = controller => {
         const toggle = document.createElement('div');
         const img_menu  = document.createElement('img');
 
-        let first = true;
-        let counter = 1;
+        let counter = 4;
 
         div.classList.add('navigation');
         toggle.classList.add('toggle');
@@ -35,8 +34,7 @@ const NavigationProjector = controller => {
             span.id = item;
             span.style = '--i:' + counter + ';';
             a.classList.add('list');
-            if(first) {
-                first = false;
+            if(window.location.hash === '#' + item) {
                 a.classList.add('active')
             }
             a.setAttribute('href', '#' + item);
@@ -46,7 +44,7 @@ const NavigationProjector = controller => {
             span.append(a);
             div.append(span);
 
-            counter ++;
+            counter --;
         }
         nav.appendChild(div);
 

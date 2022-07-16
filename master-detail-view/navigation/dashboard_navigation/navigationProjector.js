@@ -18,8 +18,6 @@ const NavigationProjector = controller => {
         const toggle    = document.createElement('div');
         const img_menu  = document.createElement('img');
 
-        let first = true;
-
         div.classList.add('navigation');
         toggle.classList.add('toggle');
         img_menu.classList.add('icon');
@@ -34,8 +32,7 @@ const NavigationProjector = controller => {
             const text = document.createElement('span');
 
             li.classList.add('list');
-            if(first) {
-                first = false;
+            if(window.location.hash === '#' + item) {
                 li.classList.add('active')
             }
             li.id = item;

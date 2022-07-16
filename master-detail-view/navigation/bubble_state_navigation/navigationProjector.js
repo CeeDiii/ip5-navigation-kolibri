@@ -17,8 +17,6 @@ const NavigationProjector = controller => {
         const ul        = document.createElement('ul');
         const indicator = document.createElement('div');
 
-        let first = true;
-
         div.classList.add('navigation');
         indicator.classList.add('indicator');
 
@@ -31,8 +29,7 @@ const NavigationProjector = controller => {
             const text = document.createElement('span');
 
             li.classList.add('list');
-            if(first) {
-                first = false;
+            if(window.location.hash === '#' + item) {
                 li.classList.add('active')
             }
             li.id = item;
