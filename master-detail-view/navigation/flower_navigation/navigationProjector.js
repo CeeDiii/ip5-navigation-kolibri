@@ -63,6 +63,8 @@ const NavigationProjector = controller => {
         list.forEach((item) =>
             item.addEventListener('click', activate)
         );
+
+        // @TODO on hash change update selected element!
     }
 
     controller.addModelChangeListener((navEvent) => {
