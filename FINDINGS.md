@@ -1,11 +1,8 @@
 # Wissensammlung für IP5
-
-TODO: Introduction
-
 ## Browser Navigation - Web API
 ### History / State
 #### Aufbau
-Dieser Ansatz nutzt die native Browserhistorie und fügt Einträge auch direkt dort ein. Einträge sind in diesem Kontekt Zustandsobjekte, die global verfügbar gemacht werden. Ein Zustandsobjekt kann Veränderungen in der View verursachen. Zustände werden auf einem Stack gespeichert direkt im Browser gespeichert. Browserbuttons navigieren anhand der Zustände auf diesem History-Stack. 
+Dieser Ansatz nutzt die native Browserhistorie und fügt Einträge auch direkt dort ein. Einträge sind in diesem Kontekt Zustandsobjekte, die global verfügbar gemacht werden. Ein Zustandsobjekt kann Veränderungen in der View verursachen. Zustände werden auf einem Stack gespeichert und direkt im Browser gespeichert. Browserbuttons navigieren anhand der Zustände auf diesem History-Stack. 
 #### Vorteile
 * native Browserunterstützung
 * Nutzung von komplexen States (z.B. Modell möglich)
@@ -14,18 +11,18 @@ Dieser Ansatz nutzt die native Browserhistorie und fügt Einträge auch direkt d
 * kein Zusatzlogik für Browserbuttons
 #### Nachteile
 * Grösse von Zustandsobjekten ist Browser-abhängig und beschränkt
-* Historie hat Browser-abhängige eine Maximallänge
+* Historie hat Browser-abhängige Maximallänge
 * jedes neue Navigationselement muss in Routinglogik eingebunden werden
 ### Hash / onhashchange()
 #### Aufbau
-Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzubauen. Die Navigationspunkte werden im Script in einem Array abgelegt. Das Array wird beim klicken auf Navigationspunkte befüllt. Die navigationsrichtung wird duche abgleichen der bestehenden History festgestellt.
+Der zweite Ansatz hat als Ziel, nicht direkt auf der Browserhistorie aufzubauen. Die Navigationspunkte werden im Script in einem Array abgelegt. Das Array wird beim Klicken auf Navigationspunkte befüllt. Die Navigationsrichtung wird durch Abgleichen der bestehenden History festgestellt.
 #### Vorteile
-* Unabhängiges verwalten der Navigationshistorie
+* Unabhängiges Verwalten der Navigationshistorie
 * Historie kann als Cookie abgelegt werden
 #### Nachteile
-* Das verhalten der Navigationsrichtung kann von der Erwartung des Nutzers abweichen
+* Das Verhalten der Navigationsrichtung kann von der Erwartung des Nutzers abweichen
 * Trotzdem abhängig vom window.location.hash
-* Nach refresh bleibt die Browsernative Historie, die Applikationseigene wird aber verworfen
+* Nach Refresh bleibt die browsernative Historie, die Applikationseigene wird aber verworfen
 ### URI vs. URL (& URN)
 (siehe Grafik: https://danielmiessler.com/images/url-structure-and-scheme-2022.png)
 #### URI
@@ -65,7 +62,7 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * User sieht sieht unter Umständen die alte Seite, zu der er eigentlich zurück möchte
 #### webRequest-API-catch-back
 * User muss unser Addon installieren
-* Je nach browser andere Synthax (Firefox-Object = browser, Crome-Object = crome)
+* Je nach Browser andere Syntax (Firefox-Object = browser, Crome-Object = chrome)
 * Die 'blockierten' Seiten müssen definiert sein
 * Weitere, installierte Extensions mit webRequest-Lifecycles können zu Fehlverhalten im Browser führen
 #### Service-Worker
@@ -76,7 +73,6 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * wird nur von Firefox und Chrome vollumfänglich unterstützt
 * globaler Zustand geht mit Navigation verloren
 * Zustand muss manuell gespeichert und verwaltet werden
-* TODO: Recherche zu React-State-Management mit Hooks (nutzen Service-Worker)
 #### Web-Worker
 * ermöglicht Multithreading im Browser
 * nützlich für rechenintensive Tasks
@@ -88,7 +84,7 @@ Der Zweite Ansatz hat als Ziel, nicht direkt von auf der Browserhistorie aufzuba
 * siehe Erklärung javascript function + eval, funktioniert mit Bookmarklets
 #### Function-Constructor
 * siehe Erklärung javascript function + eval
-* sauberste Lösung der drei genannten
+* sauberste Lösung der drei Genannten
 
 ### Quellen
 #### Allgemeines
