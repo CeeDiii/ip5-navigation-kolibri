@@ -1,6 +1,9 @@
 # IP5: Forschungsprojekt zur Navigationsunterstützung Kolibri
 Studierendenprojekt Fachhochschule Nordwestschweiz<br>
 Frühlingssemester 2022, 21.02.2022 – 19.08.2022
+
+Die Forschungsarbeit findet man hier: TODO (LINK ZUR ARBEIT)
+
 ## Projektbetreuung und -kunden
 •	Prof. Dierk König<br>
 •	Fabian Affolter
@@ -14,4 +17,6 @@ Die Studierenden erarbeiten Lösungsansätze und besprechen diese mit den Projek
 Für Entwickler soll die Implementierung und Bewirtschaftung zugänglich und gut dokumentiert sein. Anwender finden in Kolibri Single Page Applikationen eine reichhaltige und interaktive Visualisierung der Navigation vor. 
 ## Projektmethodik
 Das Vorgehen in diesem Forschungsprojekt ist iterativ und inkrementell. Die Erkenntnisse einer Iteration dienen als Grundlage für das weitere Vorgehen. Lösungsansätze, die die Anforderungen erfüllen, werden verfeinert und implementiert. Prototypen werden mit Nutzergruppen validiert. Zur Qualitätssicherung werden automatisierte Tests bereitgestellt.
+## Danksagung 
+Wir möchten hiermit herzlich unseren Dozenten, Projektkunden und -experten Prof. Dierk Koenig und Fabian Affolter danken. Ohne ihr regelmässiges Feedback und die spannenden Anregungen wäre dieses Projekt nicht im selben Umfang und insbesondere nicht in derselben Qualität zustande gekommen. Vielen Dank!
 
