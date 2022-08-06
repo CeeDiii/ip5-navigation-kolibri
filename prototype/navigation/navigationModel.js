@@ -7,8 +7,20 @@ export { Navigation }
 /**
  * Model containing the application navigation-data
  *
- * @typedef {Object} model
- * @param   {String} homePage
+ * @typedef NavigationModelType
+ * @property { (newNavPoint:String) => Boolean } addNavigationPoint - takes a string with the identifier for a new Navigation Point.
+ *              Add the Navigation Point to the model, if it does not already exist. Return true, if the operation was successful.
+ * @property { (function(navEvent: NavigationEvent) => void) } addNavigationListener - add a callback function as a listener for Navigation Events.
+ *              The callback will be executed, when a navigation event occurs.
+ * @property { function(): String } getLocation - get the currently selected location of the navigation.
+ * @property { (newLocation:String) => void } setLocation - set the currently selected location of the navigation.
+ * @property { (navPoint:String, newIndex:number) } setOrderOfNavigationPoint - change the order of the navigation.
+ *              After successfully executing this function, the navPoint will have the index of newIndex. 
+ * @property { (function(): [String]) } getNavigationPoints - returns a list of all Navigation Points.
+ * @property { (pageName:String, currentContent:DOMString) => void } savePageContent - saves the provided DOMString into the model under the key of the pageName.
+ * @property { (pageName) => DOMString } getPageContent - returns the pageContent under the given pageName. 
+ *              If no page content is found, null is returned.
+ * @param   { String } homePage - the string that represents the identifier of the homepage
  */
 const Navigation = (homePage) => {
     const navigationPoints    = Attribute([]);
@@ -67,5 +79,3 @@ const Navigation = (homePage) => {
         }
     }
 }
-
-//@TODO comment / document
