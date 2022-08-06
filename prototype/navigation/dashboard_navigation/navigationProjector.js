@@ -2,6 +2,13 @@ import { EventType } from "../EventType.js";
 
 export { NavigationProjector }
 
+/**
+ * Projector that projects navigation data to a view
+ *
+ * @typedef NavigationProjectorType
+ * @property { function() => void } projectNavigation - project the navigation data to a view 
+ * @param   { controller:NavigationControllerType } controller - the controller that is connected to the model
+ */
 const NavigationProjector = controller => {
 
     const head = document.getElementsByTagName('head')[0];
