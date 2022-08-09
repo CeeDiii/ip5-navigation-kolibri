@@ -3,6 +3,8 @@ import { EventType } from "../EventType.js";
 export { NavigationProjector }
 
 /**
+ * This design was inspired by: https://www.youtube.com/c/OnlineTutorials4Designers
+ * 
  * Projector that projects navigation data to a view
  *
  * @typedef NavigationProjectorType
