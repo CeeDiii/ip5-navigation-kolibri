@@ -8,7 +8,7 @@ export { NavigationController }
  * Controller that coordinates communication between model and projector
  *
  * @typedef NavigationControllerType
- *  * @property { (function(navEvent: NavigationEvent) => void) } addModelChangeListener - register a callback function as a listener for model changes.
+ * @property { (function(navEvent: NavigationEvent) => void) } addModelChangeListener - register a callback function as a listener for model changes.
  *              The callback will be executed, when a model change occurs.
  * @property { (newNavPoint:String) => Boolean } addNavigationPoint - Delegates function to the model.
  *              Takes a string with the identifier for a new Navigation Point. Add the Navigation Point to the model, if it does not already exist. 
