@@ -47,12 +47,14 @@ navController.addNavigationPoint('home', (navEvent) => {
             content.innerHTML = '';
             const h1 = document.createElement('h1');
             h1.innerText = navEvent.getValue().toUpperCase();
+            h1.style = 'margin-top: 35px;';
             const wrapper = document.createElement('div');
             wrapper.id = 'content-wrapper';
             const div = document.createElement('div');
             div.style = 'display: flex; justify-content: center';
             const button = document.createElement('button');
             button.innerText = "Create new navigation element";
+            button.style = 'padding: 10px; margin-top: 25px;';
             wrapper.append(h1);
             div.append(button);
             wrapper.append(div);
@@ -66,11 +68,14 @@ navController.addNavigationPoint('home', (navEvent) => {
                         content.innerHTML = '';
                         const h1 = document.createElement('h1');
                         h1.innerText = navEvent.getValue().toUpperCase();
+                        h1.style = 'margin-top: 35px;';
                         const div = document.createElement('div');
                         wrapper.append(h1);
-                        div.style = 'display: flex; justify-content: center';
+                        div.style = 'display: flex; justify-content: center; align-items:center; margin-top: 25px;';
                         const p = document.createElement('p');
+                        p.style = 'padding-right: 15px;';
                         const trigger = document.createElement('button');
+                        trigger.style = 'padding: 10px;';
                         let counter = 0;
                         p.innerText = 'demo: ' + counter;
                         div.appendChild(p);
@@ -153,6 +158,7 @@ const baseConstructForMDView = (pageName) => {
     wrapper.id = 'content-wrapper';
     const h1 = document.createElement('h1');
     h1.innerText = pageName.toUpperCase();
+    h1.style = 'margin-top: 35px;';
     wrapper.append(h1);
 
     const master = document.createElement('div');

@@ -61,22 +61,22 @@ const NavigationProjector = controller => {
         div.append(toggle);
         nav.appendChild(div);
 
-        const list = document.querySelectorAll('.list');
         toggle.onclick = function() {
             div.classList.toggle('open');
         };
-        function activate() {
-            const innerList = document.querySelectorAll('.list');
-            innerList.forEach((item) =>
-                item.classList.remove('active')
-            );
-            this.classList.add('active');
-        }
-        list.forEach((item) =>
-            item.addEventListener('click', activate)
-        );
 
-        // @TODO on hash change update selected element!
+        window.addEventListener("hashchange", changeLocation, false);
+
+        function changeLocation() {
+            const newLocation = document.getElementById(window.location.hash.slice(1));
+            if (!!newLocation) {
+                const innerList = document.querySelectorAll('.list');
+                innerList.forEach((item) =>
+                    item.classList.remove('active')
+                );
+                newLocation.classList.add('active');
+            }
+        }
     }
 
     controller.addModelChangeListener((navEvent) => {
