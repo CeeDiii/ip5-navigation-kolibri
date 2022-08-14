@@ -1,22 +1,40 @@
-# IP5: Forschungsprojekt zur Navigationsunterstützung Kolibri
-Studierendenprojekt Fachhochschule Nordwestschweiz<br>
-Frühlingssemester 2022, 21.02.2022 – 19.08.2022
+# IP5: Research Project for Navigation Support Kolibri
+Student project University of Applied Sciences Northwestern Switzerland<br>
+Spring semester 2022, 21.02.2022 – 19.08.2022
 
-Die Forschungsarbeit findet man hier: TODO (LINK ZUR ARBEIT)
+The research paper can be found here: https://navigation-for-kolibri.gitbook.io/kolibri-navigation/
 
-## Projektbetreuung und -kunden
+## Project experts/customers
 •	Prof. Dierk König<br>
 •	Fabian Affolter
-## Projektteam
+## Project team
 •	Florian Schnidrig, Student iCompetence<br>
-•	Cedric Altermatt, Student Informatik
-## Projektidee
-Ziel dieser Arbeit ist es, eine Navigationsunterstützung aufzubauen, mit der zwischen Sichten navigiert werden kann (Routing) aber auch wieder zurück (Browser-Backbutton). Dieses Routing bezieht den Browserverlauf und vom Benutzer gesetzte Lesezeichen mit ein. Lesezeichen werden entweder nativ im Browser gesetzt oder als Feature der Applikation angeboten, um zu einem vom Benutzer abgespeicherten Navigationspunkt zurückzukehren.
-## Projektziel
-Die Studierenden erarbeiten Lösungsansätze und besprechen diese mit den Projektkunden in regelmässigen Sitzungen. Ein Lösungsansatz muss in den Kontext von Kolibri passen und dem Model View Controller Ansatz folgen. Die Abstraktion der Navigationsdaten erfolgt im Presentation Model. Projektoren kümmern sich um das Darstellen der Daten in der View. Das Ziel dieser Arbeit ist ein funktionaler Prototyp, der mit der Zielgruppe validiert werden kann.
-Für Entwickler soll die Implementierung und Bewirtschaftung zugänglich und gut dokumentiert sein. Anwender finden in Kolibri Single Page Applikationen eine reichhaltige und interaktive Visualisierung der Navigation vor. 
-## Projektmethodik
-Das Vorgehen in diesem Forschungsprojekt ist iterativ und inkrementell. Die Erkenntnisse einer Iteration dienen als Grundlage für das weitere Vorgehen. Lösungsansätze, die die Anforderungen erfüllen, werden verfeinert und implementiert. Prototypen werden mit Nutzergruppen validiert. Zur Qualitätssicherung werden automatisierte Tests bereitgestellt.
-## Danksagung 
-Wir möchten hiermit herzlich unseren Dozenten, Projektkunden und -experten Prof. Dierk Koenig und Fabian Affolter danken. Ohne ihr regelmässiges Feedback und die spannenden Anregungen wäre dieses Projekt nicht im selben Umfang und insbesondere nicht in derselben Qualität zustande gekommen. Vielen Dank!
+•	Cedric Altermatt, Student Computer Science
+## Project Idea
+The goal of this project is to build a navigation support that can be used to navigate between views (routing) but also back again (browser backbutton). This routing includes the browser history and bookmarks set by the user. Bookmarks are either set natively in the browser or offered as a feature of the application to return to a navigation point saved by the user.
+## Project Goal
+Students develop solution approaches and discuss them with project customers in regular meetings. A solution approach must fit into the context of Kolibri and follow the Model View Controller approach. The abstraction of the navigation data is done in the Presentation Model. Projectors take care of displaying the data in the view. The goal of this work is a functional prototype that can be validated with the target audience.
+For developers the implementation and management should be accessible and well documented. Users will find rich and interactive navigation visualization in Kolibri single page applications. 
+## Project Methodology
+The procedure in this research project is iterative and incremental. The findings of an iteration serve as a basis for the further procedure. Solution approaches that meet the requirements are refined and implemented. Prototypes are validated with user groups. Automated tests are provided for quality assurance.
+## Acknowledgment 
+We would like to express our sincere thanks to our lecturers, project clients and experts Prof. Dierk Koenig and Fabian Affolter. Without their regular feedback and exciting suggestions, this project would not have come about to the same extent and especially not in the same quality. Many thanks!
+
+## Exchange the Projector
+If you want to test out all available projectors, proceed as follows: 
+1. Go to the file ./prototype/app.js
+2. Comment out the currently active projector 
+3. Comment in the requested projector
+4. Refresh the page
+
+```
+/**************** 2. Comment out ****************/
+import { NavigationProjector }      from "./navigation/navigationProjector.js";
+// --- Example Navigations ---
+/**************** 3. Comment in ****************/
+// import { NavigationProjector }   from "./navigation/basic_navigation/navigationProjector.js";
+// import { NavigationProjector }   from "./navigation/dashboard_navigation/navigationProjector.js";
+// import { NavigationProjector }   from "./navigation/bubble_state_navigation/navigationProjector.js";
+// import { NavigationProjector }   from "./navigation/flower_navigation/navigationProjector.js";
+```
 
