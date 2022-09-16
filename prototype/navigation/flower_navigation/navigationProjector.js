@@ -3,6 +3,8 @@ import { EventType } from "../EventType.js";
 export { NavigationProjector }
 
 /**
+ * This design was inspired by: https://www.youtube.com/c/OnlineTutorials4Designers
+ * 
  * Projector that projects navigation data to a view
  *
  * @typedef NavigationProjectorType
@@ -59,19 +61,18 @@ const NavigationProjector = controller => {
             nav.classList.toggle("open");
         });
 
-        const list = document.querySelectorAll('.list');
-        function activate() {
-            const innerList = document.querySelectorAll('.list');
-            innerList.forEach((item) =>
-                item.classList.remove('active')
-            );
-            this.classList.add('active');
-        }
-        list.forEach((item) =>
-            item.addEventListener('click', activate)
-        );
+        window.addEventListener("hashchange", changeLocation, false);
 
-        // @TODO on hash change update selected element!
+        function changeLocation() {
+            const newLocation = document.getElementById(window.location.hash.slice(1));
+            if (!!newLocation) {
+                const innerList = document.querySelectorAll('.list');
+                innerList.forEach((item) =>
+                    item.classList.remove('active')
+                );
+                newLocation.getElementsByClassName('list')[0].classList.add('active');
+            }
+        }
     }
 
     controller.addModelChangeListener((navEvent) => {
