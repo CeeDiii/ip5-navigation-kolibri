@@ -50,4 +50,15 @@ ncSuite.add('setOrderOfNavigationPoint', assert => {
     }
 });
 
+ncSuite.add('getHomePage', assert => {
+    const controller = NavigationController(NavigationModel('home'));
+    assert.is(controller.getHomePage(), 'home');
+});
+
+ncSuite.add('setHomePage', assert => {
+    const controller = NavigationController(NavigationModel('home'));
+    controller.setHomePage('car');
+    assert.is(controller.getHomePage(), 'car');
+});
+
 ncSuite.run();

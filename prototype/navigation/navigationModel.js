@@ -23,23 +23,26 @@ export { NavigationModel }
  * @property { (navPoint:String, newIndex:Number) => void } setOrderOfNavigationPoint - change the order of the navigation.
  *              After successfully executing this function, the navPoint will have the index of newIndex. 
  * @property { () => [String] } getNavigationPoints - returns a list of all Navigation Points.
- * @property { (pageName:String, currentContent:HTMLDivElement) => void } savePageContent - saves the provided HTMLDivElement into the model under the key of the pageName. TODO rename save and current
+ * @property { (pageName:String, currentContent:HTMLDivElement) => void } setPageContent - saves the provided HTMLDivElement into the model under the key of the pageName.
  * @property { (pageName:String) => HTMLDivElement } getPageContent - returns the pageContent under the given pageName.
  *              If no page content is found, null is returned.
+ * @property { (updatedHomePage:String) => void } setHomePage - set a new homepage as fallback if no hash is provided in the page call.
+ * @property { () => String } getHomePage - get the homepage.
  */
 
 /** 
  * @constructor 
- * @param   { !String } homePage - the string that represents the identifier of the homepage, mandatory TODO: implement fallback to homepage
+ * @param   { !String } initialHomePage - the string that represents the identifier of the homepage, acts as a fallback, if no hash is provided with the page call
  * @return  { NavigationModelType }
  * @example
  * const navigationModel = NavigationModel("home");
  */
-const NavigationModel = homePage => {
+const NavigationModel = initialHomePage => {
     const navigationPoints    = Attribute([]);
-    const location            = Attribute(homePage);
+    const location            = Attribute(initialHomePage);
     const navigationListeners = [];
-    const pageContents        = new Map(); // TODO anonymes Objekt
+    const pageContents        = {};
+    let   homePage            = initialHomePage;
 
     const addNavigationPoint = newNavPoint => {
         const navPoints = navigationPoints.getObs(VALUE).getValue();
@@ -80,7 +83,10 @@ const NavigationModel = homePage => {
             return retNavPoints;
         },
 
-        savePageContent: (pageName, currentContent) => pageContents.set(pageName, currentContent),
-        getPageContent: pageName => pageContents.get(pageName)
+        setPageContent: (pageName, currentContent) => pageContents[pageName] = currentContent,
+        getPageContent: pageName => pageContents[pageName],
+
+        setHomePage: updatedHomePage => updatedHomePage.startsWith('#') ? homePage = updatedHomePage.substring(1) : homePage = updatedHomePage,
+        getHomePage: () => homePage
     }
 };

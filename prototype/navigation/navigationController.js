@@ -18,11 +18,16 @@ export { NavigationController }
  *              Change the order of the navigation. After successfully executing this function, the navPoint will have the index of newIndex. 
  * @property { () => [String] } getNavigationPoints - Delegates function to the model.
  *              Returns a list of all Navigation Points.
- * @property { (pageName:String, currentContent:HTMLDivElement) => void } savePageContent - Delegates function to the model.
+ * @property { (pageName:String, currentContent:HTMLDivElement) => void } setPageContent - Delegates function to the model.
  *              Saves the provided DOMString into the model under the key of the pageName.
  * @property { (pageName:String) => HTMLDivElement } getPageContent - Delegates function to the model.
  *              Returns the pageContent under the given pageName. 
  *              If no page content is found, null is returned.
+ * @property { (updatedHomePage:String) => void } setHomePage - Delegates function to the model.
+ *             set a new homepage as fallback if no hash is provided in the page call.
+ *
+ * @property { () => String } getHomePage - Delegates function to the model.
+ *             get the homepage.
  */
 
 /**
@@ -40,7 +45,10 @@ const NavigationController = model => {
     window.onhashchange = () => model.setLocation(window.location.hash);
 
     // Sending event after document is loaded for content to render
-    window.onload = () => modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.location.hash, window.location.hash)));
+    window.onload = () => {
+        model.setLocation('#' + model.getHomePage());
+        modelChangeListeners.forEach(callback => callback(NavigationEvent(EventType.PAGE_CHANGE, window.location.hash, window.location.hash)));
+    };
 
     /**
      * Add a callback function that will be executed when a model change occurs
@@ -74,7 +82,9 @@ const NavigationController = model => {
         getLocation: () => model.getLocation(),
         setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex),
         getNavigationPoints: () => model.getNavigationPoints(),
-        savePageContent: (pageName, currentContent) => model.savePageContent(pageName, currentContent),
+        setPageContent: (pageName, currentContent) => model.setPageContent(pageName, currentContent),
         getPageContent: pageName => model.getPageContent(pageName),
+        setHomePage: updatedHomePage => model.setHomePage(updatedHomePage),
+        getHomePage: () => model.getHomePage()
     }
 };

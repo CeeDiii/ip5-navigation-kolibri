@@ -69,7 +69,7 @@ navController.addNavigationPoint('home', navEvent => {
             wrapper.append(div);
             content.appendChild(wrapper);
 
-            navController.savePageContent('home', wrapper);
+            navController.setPageContent('home', wrapper);
             button.onclick = () => navController.addNavigationPoint("demo", navEvent => {
                 if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === "demo") {
                     if(navController.getPageContent('demo') === undefined) {
@@ -104,7 +104,7 @@ navController.addNavigationPoint('home', navEvent => {
                         wrapper.append(div);
                         content.appendChild(wrapper);
 
-                        navController.savePageContent('demo', wrapper);
+                        navController.setPageContent('demo', wrapper);
                     }
                 }
             });
@@ -138,7 +138,7 @@ navController.addNavigationPoint('car', navEvent => {
 
             document.getElementById('plus').onclick = _ => carListController.addModel();
 
-            navController.savePageContent('car', wrapper);
+            navController.setPageContent('car', wrapper);
         }
     }
 });
@@ -168,7 +168,7 @@ navController.addNavigationPoint('person', navEvent => {
 
             document.getElementById('plus').onclick = _ => personListController.addModel();
 
-            navController.savePageContent('person', wrapper);
+            navController.setPageContent('person', wrapper);
         }
     }
 });
