@@ -9,14 +9,14 @@ export { NavigationController }
  * @typedef NavigationControllerType
  * @property { (listener:NavigationListenerType) => void } addModelChangeListener - register a callback function as a listener for model changes.
  *              The callback will be executed, when a model change occurs.
- * @property { (newNavPoint:String) => Boolean } addNavigationPoint - Delegates function to the model.
+ * @property { (newNavPoint:String, listener:NavigationListenerType) => Boolean } addNavigationPoint - Delegates function to the model.
  *              Takes a string with the identifier for a new Navigation Point. Add the Navigation Point to the model, if it does not already exist. 
  *              Return true, if the operation was successful.
- * @property { function(): String } getLocation - Delegates function to the model
+ * @property { () => String } getLocation - Delegates function to the model
  *              Get the currently selected location of the navigation.
- * @property { (navPoint:String, newIndex:number) => void } setOrderOfNavigationPoint - Delegates function to the model
+ * @property { (navPoint:String, newIndex:Number) => void } setOrderOfNavigationPoint - Delegates function to the model
  *              Change the order of the navigation. After successfully executing this function, the navPoint will have the index of newIndex. 
- * @property { (function(): [String]) } getNavigationPoints - Delegates function to the model.
+ * @property { () => [String] } getNavigationPoints - Delegates function to the model.
  *              Returns a list of all Navigation Points.
  * @property { (pageName:String, currentContent:HTMLDivElement) => void } savePageContent - Delegates function to the model.
  *              Saves the provided DOMString into the model under the key of the pageName.
@@ -28,7 +28,7 @@ export { NavigationController }
 /**
  * @constructor
  * @param   { !NavigationModelType } model - the navigation model this controller coordinates
- * @return  {{addNavigationPoint: (function(*, *): Boolean), getNavigationPoints: (function(): String[]), getLocation: (function(): String), setOrderOfNavigationPoint: (function(*, *): void), getPageContent: (function(*): HTMLDivElement), addModelChangeListener: (function(*): number), savePageContent: (function(*, *): void)}}
+ * @return  { NavigationControllerType }
  * @example
  * const navigationModel = NavigationModel("home");
  * const navigationController = NavigationController(navigationModel);
@@ -67,14 +67,14 @@ const NavigationController = model => {
 
     return {
         addModelChangeListener,
-        getLocation: () => model.getLocation(),
-        addNavigationPoint: (newNavPoint, callback) => { 
+        addNavigationPoint: (newNavPoint, callback) => {
             addModelChangeListener(callback);
-            return model.addNavigationPoint(newNavPoint); 
+            return model.addNavigationPoint(newNavPoint);
         },
+        getLocation: () => model.getLocation(),
         setOrderOfNavigationPoint: (navPoint, newIndex) =>  model.setOrderOfNavigationPoint(navPoint, newIndex),
         getNavigationPoints: () => model.getNavigationPoints(),
         savePageContent: (pageName, currentContent) => model.savePageContent(pageName, currentContent),
-        getPageContent: pageName => model.getPageContent(pageName)
+        getPageContent: pageName => model.getPageContent(pageName),
     }
 };

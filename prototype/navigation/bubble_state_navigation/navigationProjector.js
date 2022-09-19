@@ -11,7 +11,7 @@ export { NavigationProjector }
 
 /**
  * @constructor
- * @param   {{addNavigationPoint: (function(*, *): Boolean), getNavigationPoints: (function(): String[]), getLocation: (function(): String), setOrderOfNavigationPoint: (function(*, *): void), getPageContent: (function(*): HTMLDivElement), addModelChangeListener: (function(*): number), savePageContent: (function(*, *): void)}} controller - the controller that is connected to the model
+ * @param   { NavigationControllerType } controller - the controller that is connected to the model
  * @return  { NavigationProjectorType }
  * @example
  * const navigationModel = NavigationModel('home');
