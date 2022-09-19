@@ -34,9 +34,8 @@ export { NavigationModel }
  * @return  { NavigationModelType }
  * @example
  * const navigationModel = NavigationModel("home");
- * 
  */
-const NavigationModel = (homePage) => {
+const NavigationModel = homePage => {
     const navigationPoints    = Attribute([]);
     const location            = Attribute(homePage);
     const navigationListeners = [];
@@ -51,14 +50,12 @@ const NavigationModel = (homePage) => {
         navPoints.push(navPointAttr);
         navigationListeners.forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, newNavPoint, newNavPoint)));
         return true;
-    }
+    };
 
     addNavigationPoint(homePage);
 
     return {
-        addNavigationListener: callback => {
-            navigationListeners.push(callback);
-        },
+        addNavigationListener: callback => navigationListeners.push(callback),
         getLocation: () => location.getObs(VALUE).getValue(),
         setLocation: newLocation => {
             const lastLocation = location.getObs(VALUE).getValue();
@@ -71,7 +68,7 @@ const NavigationModel = (homePage) => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
             const current = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue().toLowerCase() === navPoint.toLowerCase());
             if (current >= 0 && current !== newIndex) {
-                const currentItem = navPoints.splice(current, 1)[0]
+                const currentItem = navPoints.splice(current, 1)[0];
                 navPoints.splice(newIndex, 0, currentItem);
                 navigationListeners.forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint, navPoint)));
             }
@@ -79,17 +76,11 @@ const NavigationModel = (homePage) => {
         getNavigationPoints: () => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
             const retNavPoints = [];
-            navPoints.forEach(value => {
-                retNavPoints.push(value.getObs(VALUE).getValue());
-            });
+            navPoints.forEach(value => retNavPoints.push(value.getObs(VALUE).getValue()));
             return retNavPoints;
         },
 
-        savePageContent: (pageName, currentContent) => {
-            pageContents.set(pageName, currentContent);
-        },
-        getPageContent: (pageName) => {
-            return pageContents.get(pageName);
-        }
+        savePageContent: (pageName, currentContent) => pageContents.set(pageName, currentContent),
+        getPageContent: pageName => pageContents.get(pageName)
     }
-}
+};

@@ -4,7 +4,7 @@ export { NavigationEvent }
 /**
  * Navigation event containing a type and any value
  *
- * @typedef  { Object } NavigationEvent
+ * @typedef  { Object } NavigationEventType
  * @property { () => EventType } getEventType
  * @property { () => String } getHash
  * @property { () => String } getValue
@@ -35,10 +35,10 @@ const NavigationEvent = (type, val, lastVal) => {
     const lastValue = lastVal.substring(1);
 
     return {
-        getEventType: () => { return eventType; },
-        getHash:      () => { return hash; },
-        getValue:     () => { return value; },
-        getLastHash:  () => { return lastHash; },
-        getLastValue: () => { return lastValue; }
+        getEventType: () => eventType,
+        getHash:      () => hash,
+        getValue:     () => value,
+        getLastHash:  () => lastHash,
+        getLastValue: () => lastValue
     }
 };

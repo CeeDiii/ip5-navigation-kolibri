@@ -23,9 +23,16 @@ export { NavigationController }
  * @property { (pageName:String) => HTMLDivElement } getPageContent - Delegates function to the model.
  *              Returns the pageContent under the given pageName. 
  *              If no page content is found, null is returned.
- * @param   { NavigationModelType } model - the navigation model this controller coordinates
  */
 
+/**
+ * @constructor
+ * @param   { !NavigationModelType } model - the navigation model this controller coordinates
+ * @return  {{addNavigationPoint: (function(*, *): Boolean), getNavigationPoints: (function(): String[]), getLocation: (function(): String), setOrderOfNavigationPoint: (function(*, *): void), getPageContent: (function(*): HTMLDivElement), addModelChangeListener: (function(*): number), savePageContent: (function(*, *): void)}}
+ * @example
+ * const navigationModel = NavigationModel("home");
+ * const navigationController = NavigationController(navigationModel);
+ */
 const NavigationController = model => {
     const modelChangeListeners = [];
 
@@ -39,14 +46,14 @@ const NavigationController = model => {
      * Add a callback function that will be executed when a model change occurs
      *
      * @template T
-     * @callback {callback: onChange<EventType, T>} callback - function that will be called
+     * @callback { callback: onChange<EventType, T> } callback - function that will be called
      */
     const addModelChangeListener = callback => modelChangeListeners.push(callback);
 
     /**
      * Notify observers that a model change occurred
      *
-     * @param {NavigationEvent} navEvent
+     * @param { NavigationEventType } navEvent
      *
      */
     const onModelChange = navEvent => {
