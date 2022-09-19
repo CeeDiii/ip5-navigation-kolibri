@@ -6,8 +6,18 @@ export { NavigationProjector }
  * Projector that projects navigation data to a view
  *
  * @typedef NavigationProjectorType
- * @property { function() => void } projectNavigation - project the navigation data to a view 
- * @param   { controller:NavigationControllerType } controller - the controller that is connected to the model
+ * @property { () => void } projectNavigation - project the navigation data to a view
+ */
+
+/**
+ * @constructor
+ * @param   { !NavigationControllerType } controller - the controller that is connected to the model
+ * @return  { NavigationProjectorType }
+ * @example
+ * const navigationModel = NavigationModel('home');
+ * const navigationController = NavigationController(navigationModel);
+ * const navigationProjector = NavigationProjector(navigationController);
+ * navigationProjector.projectNavigation();
  */
 const NavigationProjector = controller => {
 
@@ -26,7 +36,7 @@ const NavigationProjector = controller => {
         div.classList.add('navigation');
 
         nav.innerHTML = '';
-        for(let item of controller.getNavigationPoints()) {
+        for(const item of controller.getNavigationPoints()) {
             const li   = document.createElement('li');
             const a    = document.createElement('a');
             const icon = document.createElement('span');

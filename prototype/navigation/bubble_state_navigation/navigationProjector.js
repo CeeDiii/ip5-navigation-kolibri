@@ -3,13 +3,21 @@ import { EventType } from "../EventType.js";
 export { NavigationProjector }
 
 /**
- * This design was inspired by: https://www.youtube.com/c/OnlineTutorials4Designers
- * 
  * Projector that projects navigation data to a view
  *
  * @typedef NavigationProjectorType
- * @property { function() => void } projectNavigation - project the navigation data to a view 
- * @param   { controller:NavigationControllerType } controller - the controller that is connected to the model
+ * @property { () => void } projectNavigation - project the navigation data to a view
+ */
+
+/**
+ * @constructor
+ * @param   {{addNavigationPoint: (function(*, *): Boolean), getNavigationPoints: (function(): String[]), getLocation: (function(): String), setOrderOfNavigationPoint: (function(*, *): void), getPageContent: (function(*): HTMLDivElement), addModelChangeListener: (function(*): number), savePageContent: (function(*, *): void)}} controller - the controller that is connected to the model
+ * @return  { NavigationProjectorType }
+ * @example
+ * const navigationModel = NavigationModel('home');
+ * const navigationController = NavigationController(navigationModel);
+ * const navigationProjector = NavigationProjector(navigationController);
+ * navigationProjector.projectNavigation();
  */
 const NavigationProjector = controller => {
 
@@ -30,7 +38,7 @@ const NavigationProjector = controller => {
         indicator.classList.add('indicator');
 
         nav.innerHTML = '';
-        for(let item of controller.getNavigationPoints()) {
+        for(const item of controller.getNavigationPoints()) {
             const li   = document.createElement('li');
             const a    = document.createElement('a');
             const icon = document.createElement('span');
@@ -64,15 +72,15 @@ const NavigationProjector = controller => {
             const newLocation = document.getElementById(window.location.hash.slice(1));
             if (!!newLocation) {
                 const innerList = document.querySelectorAll('.list');
-                innerList.forEach((item) =>
+                innerList.forEach(item =>
                     item.classList.remove('active')
                 );
                 newLocation.classList.add('active');
             }
         }
-    }
+    };
 
-    controller.addModelChangeListener((navEvent) => {
+    controller.addModelChangeListener(navEvent => {
         if (navEvent.getEventType() === EventType.NAVBAR_CHANGE) projectNavigation();
         if (navEvent.getEventType() === EventType.PAGE_CHANGE) {
             const pageContent = controller.getPageContent(navEvent.getValue());
@@ -86,4 +94,4 @@ const NavigationProjector = controller => {
     return {
         projectNavigation
     }
-}
+};
