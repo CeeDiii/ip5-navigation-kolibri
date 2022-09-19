@@ -49,7 +49,7 @@ const NavigationProjector = controller => {
             const img = document.createElement('img');
 
             span.id = item;
-            span.style = '--i:' + counter + ';';
+            span.style.cssText = '--i:' + counter + ';';
             a.classList.add('list');
             if(window.location.hash === '#' + item) {
                 a.classList.add('active')
