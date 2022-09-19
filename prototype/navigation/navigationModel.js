@@ -23,8 +23,8 @@ export { NavigationModel }
  * @property { (navPoint:String, newIndex:Number) => void } setOrderOfNavigationPoint - change the order of the navigation.
  *              After successfully executing this function, the navPoint will have the index of newIndex. 
  * @property { () => [String] } getNavigationPoints - returns a list of all Navigation Points.
- * @property { (pageName:String, currentContent:DOMString) => void } savePageContent - saves the provided DOMString into the model under the key of the pageName.
- * @property { (pageName:String) => DOMString } getPageContent - returns the pageContent under the given pageName. 
+ * @property { (pageName:String, currentContent:HTMLDivElement) => void } savePageContent - saves the provided HTMLDivElement into the model under the key of the pageName. TODO rename save and current
+ * @property { (pageName:String) => HTMLDivElement } getPageContent - returns the pageContent under the given pageName.
  *              If no page content is found, null is returned.
  */
 
@@ -40,7 +40,7 @@ const NavigationModel = (homePage) => {
     const navigationPoints    = Attribute([]);
     const location            = Attribute(homePage);
     const navigationListeners = [];
-    const pageContents        = new Map();
+    const pageContents        = new Map(); // TODO anonymes Objekt
 
     const addNavigationPoint = newNavPoint => {
         const navPoints = navigationPoints.getObs(VALUE).getValue();
@@ -70,7 +70,7 @@ const NavigationModel = (homePage) => {
         setOrderOfNavigationPoint: (navPoint, newIndex) => {
             const navPoints = navigationPoints.getObs(VALUE).getValue();
             const current = navPoints.findIndex(navObs => navObs.getObs(VALUE).getValue().toLowerCase() === navPoint.toLowerCase());
-            if (current >= 0 && current != newIndex) {
+            if (current >= 0 && current !== newIndex) {
                 const currentItem = navPoints.splice(current, 1)[0]
                 navPoints.splice(newIndex, 0, currentItem);
                 navigationListeners.forEach(callback => callback(NavigationEvent(EventType.NAVBAR_CHANGE, navPoint, navPoint)));

@@ -4,10 +4,24 @@ export { NavigationEvent }
 /**
  * Navigation event containing a type and any value
  *
- * @typedef {Object} NavigationEvent
- * @param   {EventType} type
- * @param   {string} val
+ * @typedef  { Object } NavigationEvent
+ * @property { () => EventType } getEventType
+ * @property { () => String } getHash
+ * @property { () => String } getValue
+ * @property { () => String } getLastHash
+ * @property { () => String } getLastValue
+ * @param    { EventType } type
+ * @param    { String } val
  * 
+ */
+
+/**
+ *
+ * @constructor
+ * @param { EventType } type
+ * @param { String } val
+ * @param { String } lastVal
+ * @returns { NavigationEventType }
  */
 const NavigationEvent = (type, val, lastVal) => {
     if (!val.startsWith("#")) val = '#' + val;
@@ -27,5 +41,4 @@ const NavigationEvent = (type, val, lastVal) => {
         getLastHash:  () => { return lastHash; },
         getLastValue: () => { return lastValue; }
     }
-
-}
+};

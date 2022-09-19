@@ -1,5 +1,5 @@
 import { EventType }                                        from "./navigation/EventType.js";
-import { Navigation }                                       from "./navigation/navigationModel.js";
+import { NavigationModel }                                  from "./navigation/navigationModel.js";
 import { NavigationController }                             from "./navigation/navigationController.js";
 // import { NavigationProjector }                              from "./navigation/navigationProjector.js";
 // --- Example Navigations ---
@@ -30,7 +30,7 @@ const style = document.getElementById('style');
 
 /********************************** NAVIGATION ****************************************/
 
-const navModel = Navigation('home');
+const navModel = NavigationModel('home');
 
 const navController = NavigationController(navModel);
 
@@ -41,13 +41,14 @@ navProjector.projectNavigation();
 
 /********************************** HOME ****************************************/
 
-navController.addNavigationPoint('home', (navEvent) => {
+navController.addNavigationPoint('home', navEvent => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'home') {
         if (navController.getPageContent('home') === undefined) {
             content.innerHTML = '';
             const h1 = document.createElement('h1');
             h1.innerText = navEvent.getValue().toUpperCase();
             h1.style = 'margin-top: 35px;';
+            /** @type { HTMLDivElement } */
             const wrapper = document.createElement('div');
             wrapper.id = 'content-wrapper';
             const div = document.createElement('div');
@@ -60,7 +61,7 @@ navController.addNavigationPoint('home', (navEvent) => {
             wrapper.append(div);
             content.appendChild(wrapper);
             navController.savePageContent('home', wrapper);
-            button.onclick = () => navController.addNavigationPoint("demo", (navEvent) => {
+            button.onclick = () => navController.addNavigationPoint("demo", navEvent => {
                 if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === "demo") {
                     if(navController.getPageContent('demo') === undefined) {
                         const wrapper = document.createElement('div');
@@ -94,13 +95,13 @@ navController.addNavigationPoint('home', (navEvent) => {
 
 /********************************** CAR ****************************************/
 
-navController.addNavigationPoint('car', (navEvent) => {
+navController.addNavigationPoint('car', navEvent => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'car') {
         if (navController.getPageContent('car') === undefined) {
 
             content.innerHTML = '';
             style.innerHTML = '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
-                '<link rel="stylesheet"                     href="./pages/car/instantUpdateProjector.css">'
+                '<link rel="stylesheet"                     href="./pages/car/instantUpdateProjector.css">';
 
             // create the sub-views, incl. binding
             const [wrapper, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
@@ -125,13 +126,13 @@ navController.addNavigationPoint('car', (navEvent) => {
 
 /********************************** PERSON ****************************************/
 
-navController.addNavigationPoint('person', (navEvent) => {
+navController.addNavigationPoint('person', navEvent => {
     if (navEvent.getEventType() === EventType.PAGE_CHANGE && navEvent.getValue().toLowerCase() === 'person') {
         if (navController.getPageContent('person') === undefined) {
 
             content.innerHTML = '';
             style.innerHTML = '<link rel="shortcut icon" type="image/png" href="./img/logo/logo-60x54.png"/>' +
-                '<link rel="stylesheet"                     href="./pages/person/instantUpdateProjector.css">'
+                '<link rel="stylesheet"                     href="./pages/person/instantUpdateProjector.css">';
             // create the sub-views, incl. binding
             const [wrapper, detail] = baseConstructForMDView(navEvent.getValue().toUpperCase());
 
@@ -153,12 +154,12 @@ navController.addNavigationPoint('person', (navEvent) => {
     }
 });
 
-const baseConstructForMDView = (pageName) => {
+const baseConstructForMDView = pageName => {
     const wrapper = document.createElement('div');
     wrapper.id = 'content-wrapper';
     const h1 = document.createElement('h1');
     h1.innerText = pageName.toUpperCase();
-    h1.style = 'margin-top: 35px;';
+    h1.style.setProperty('margin-top', '35px'); //TODO: adapt
     wrapper.append(h1);
 
     const master = document.createElement('div');
@@ -178,7 +179,7 @@ const baseConstructForMDView = (pageName) => {
 
     const detail = document.createElement('div');
     detail.classList.add('card');
-    detail.id = 'detailCard;'
+    detail.id = 'detailCard;';
 
     const detailHolder = document.createElement('div');
     detailHolder.classList.add('holder');
@@ -187,4 +188,4 @@ const baseConstructForMDView = (pageName) => {
     wrapper.appendChild(detail);
 
     return [wrapper, detail];
-}
+};
